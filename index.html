@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MaraMaund Studios - Профессиональный Дубляж</title>
+    <meta name="description" content="MaraMaund Studios - ваш надежный партнер в мире профессионального дубляжа фильмов и сериалов. Качественное озвучивание, липсинк, перевод и адаптация для российского зрителя.">
+    <meta name="keywords" content="MaraMaund Studios, студия дубляжа, дубляж фильмов, озвучивание фильмов, липсинк, перевод фильмов, студия озвучки, профессиональный дубляж, озвучка сериалов, русская озвучка, студия звукозаписи, постпродакшн">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://maramaundstudios.ru/">
+    <meta property="og:title" content="MaraMaund Studios - Профессиональный Дубляж">
+    <meta property="og:description" content="Профессиональный дубляж фильмов и сериалов с безупречным качеством звука и точной синхронизацией.">
+    <meta property="og:image" content="https://maramaundstudios.ru/og-image.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://maramaundstudios.ru/">
+    <meta property="twitter:title" content="MaraMaund Studios - Профессиональный Дубляж">
+    <meta property="twitter:description" content="Профессиональный дубляж фильмов и сериалов с безупречным качеством звука и точной синхронизацией.">
+    <meta property="twitter:image" content="https://maramaundstudios.ru/twitter-image.jpg">
+
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://unpkg.com">
+
+    <!-- Fonts with display swap -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "MaraMaund Studios",
+        "url": "https://maramaundstudios.ru",
+        "logo": "https://maramaundstudios.ru/logo.png",
+        "description": "Профессиональная студия дубляжа фильмов и сериалов",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "ул. Примерная, д. 10, офис 20",
+            "addressLocality": "Москва",
+            "postalCode": "123456",
+            "addressCountry": "RU"
+        },
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+7-123-456-78-90",
+            "contactType": "customer service",
+            "email": "info@maramaundstudios.ru"
+        }
+    }
+    </script>
+
+    <!-- Preload critical assets -->
+    <link rel="preload" href="fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/oswald-var.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="hero-bg.jpg" as="image">
+    
+    <!-- Add meta theme-color for mobile browsers -->
+    <meta name="theme-color" content="#C00000" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Перейти к основному содержимому</a>
+    
+    <header class="header" role="banner">
+        <div class="container">
+            <div class="logo">
+                <a href="#hero" aria-label="MaraMaund Studios - Главная">MaraMaund Studios</a>
+            </div>
+            <nav class="nav" role="navigation" aria-label="Основное меню">
+                <ul>
+                    <li><a href="#about">О нас</a></li>
+                    <li><a href="#services">Услуги</a></li>
+                    <li><a href="#portfolio">Портфолио</a></li>
+                    <li><a href="#contact">Контакты</a></li>
+                </ul>
+            </nav>
+            <button class="menu-toggle" aria-label="Открыть меню" aria-expanded="false" aria-controls="nav">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Reading Progress Bar -->
+    <div class="reading-progress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+        <div class="reading-progress-bar"></div>
+    </div>
+
+    <main id="main-content" role="main">
+        <section id="hero" class="hero-section" aria-label="Главный баннер">
+            <div class="container">
+                <h1 data-aos="fade-up" data-aos-duration="1200">MaraMaund Studios</h1>
+                <p data-aos="fade-up" data-aos-delay="300" data-aos-duration="1200">
+                    Голос, который оживляет истории: <br>
+                    Профессиональный дубляж фильмов и сериалов
+                </p>
+                <a href="#portfolio" class="button primary" data-aos="zoom-in" data-aos-delay="600" data-aos-duration="1200">Смотреть портфолио</a>
+            </div>
+        </section>
+
+        <section id="about" class="about-section section-padding" aria-labelledby="about-heading">
+            <div class="container">
+                <div class="about-content">
+                    <div class="about-text" data-aos="fade-right" data-aos-duration="1000">
+                        <span class="section-tag">О нас</span>
+                        <h2 id="about-heading">Передовые технологии, <br>безупречное звучание</h2>
+                        <p>MaraMaund Studios – это не просто студия, это сообщество талантливых профессионалов, объединенных любовью к искусству звука и кино. Мы специализируемся на создании высококачественного дубляжа для международных фильмов, сериалов и анимационных проектов, адаптируя их для русскоязычной аудитории с максимальной точностью и эмоциональной глубиной.</p>
+                        <p>Наш секрет — в сочетании инновационных технологий, передового оборудования и уникального актерского мастерства. Мы гарантируем безупречный липсинк, точную передачу интонаций и полную адаптацию культурных нюансов, чтобы каждый зритель почувствовал себя частью истории.</p>
+                    </div>
+                    <div class="about-image" data-aos="fade-left" data-aos-duration="1000">
+                        <img src="about-us.jpg" alt="Студия дубляжа MaraMaund Studios" loading="lazy">
+                    </div>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-item" data-aos="fade-up" data-aos-delay="100">
+                        <i class="fas fa-microphone-alt"></i>
+                        <h3>Опытные Актеры</h3>
+                        <p>Наша обширная база талантливых актеров озвучивания и дубляжа.</p>
+                    </div>
+                    <div class="feature-item" data-aos="fade-up" data-aos-delay="200">
+                        <i class="fas fa-headphones"></i>
+                        <h3>Современное Оборудование</h3>
+                        <p>Студии оснащены новейшим оборудованием для чистого звука.</p>
+                    </div>
+                    <div class="feature-item" data-aos="fade-up" data-aos-delay="300">
+                        <i class="fas fa-magic"></i>
+                        <h3>Внимание к Деталям</h3>
+                        <p>Тщательная работа над каждым звуком, интонацией и нюансом.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="services-section section-padding" aria-labelledby="services-heading">
+            <div class="container">
+                <span class="section-tag text-center" data-aos="fade-up">Наши возможности</span>
+                <h2 id="services-heading" data-aos="fade-up" data-aos-delay="100">Комплексный подход к дубляжу</h2>
+                <p class="section-description" data-aos="fade-up" data-aos-delay="200">
+                    Мы предлагаем полный спектр услуг, от перевода до финального мастеринга, гарантируя качество на каждом этапе.
+                </p>
+                <div class="services-grid">
+                    <div class="service-item" data-aos="fade-up" data-aos-delay="100">
+                        <div class="icon-circle"><i class="fas fa-film"></i></div>
+                        <h3>Полноценный дубляж</h3>
+                        <p>Полная замена звуковой дорожки с точным липсинком и актерской игрой.</p>
+                    </div>
+                    <div class="service-item" data-aos="fade-up" data-aos-delay="200">
+                        <div class="icon-circle"><i class="fas fa-comment-dots"></i></div>
+                        <h3>Липсинк и синхронизация</h3>
+                        <p>Идеальная синхронизация речи с движениями губ персонажей.</p>
+                    </div>
+                    <div class="service-item" data-aos="fade-up" data-aos-delay="300">
+                        <div class="icon-circle"><i class="fas fa-volume-up"></i></div>
+                        <h3>Закадровое озвучивание</h3>
+                        <p>Наложение перевода поверх оригинальной звуковой дорожки, сохраняя атмосферу.</p>
+                    </div>
+                    <div class="service-item" data-aos="fade-up" data-aos-delay="400">
+                        <div class="icon-circle"><i class="fas fa-language"></i></div>
+                        <h3>Перевод и Адаптация</h3>
+                        <p>Культурная адаптация сценариев, сохранение смыслов и юмора.</p>
+                    </div>
+                    <div class="service-item" data-aos="fade-up" data-aos-delay="500">
+                        <div class="icon-circle"><i class="fas fa-theater-masks"></i></div>
+                        <h3>Кастинг и подбор актеров</h3>
+                        <p>Помощь в поиске идеальных голосов для ваших уникальных персонажей.</p>
+                    </div>
+                    <div class="service-item" data-aos="fade-up" data-aos-delay="600">
+                        <div class="icon-circle"><i class="fas fa-sliders-h"></i></div>
+                        <h3>Звукорежиссура и сведение</h3>
+                        <p>Профессиональная запись, монтаж, сведение и мастеринг аудиоматериалов.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="portfolio" class="portfolio-section section-padding" aria-labelledby="portfolio-heading">
+            <div class="container">
+                <span class="section-tag text-center" data-aos="fade-up">Наши проекты</span>
+                <h2 id="portfolio-heading" data-aos="fade-up" data-aos-delay="100">Ожившие истории</h2>
+                <p class="section-description" data-aos="fade-up" data-aos-delay="200">
+                    Ознакомьтесь с примерами дубляжа фильмов и сериалов, над которыми мы работали.
+                </p>
+
+                <div class="portfolio-grid">
+                    <div class="portfolio-item" data-aos="fade-up" data-aos-delay="100">
+                        <div class="video-wrapper">
+                            <iframe src="https://www.youtube.com/embed/yXectSBcUKE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>УДИВИТЕЛЬНЫЙ ЦИФРОВОЙ ЦИРК - ПИЛОТ +14 (Неполноценный Дубляж)</h3>
+                            <p>Удивительный Цифровой Цирк это психологическая комедия о мультяшных героях, которые мечтают выбраться из этого безумного места. 🎪 😃 😃 😃🎪</p>
+                            <a href="#contact" class="link-more">Подробнее <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item" data-aos="fade-up" data-aos-delay="200">
+                        <div class="video-wrapper">
+                            <iframe src="https://www.youtube.com/embed/j8GWluNJ_78" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Трейлер Удивительного Цифрового Цирка)</h3>
+                            <p>🎪 Удивительный Цифровой Цирк — психологическая комедия о мультяшных героях, которые мечтают сбежать из безумного виртуального мира. Смех, страх и баги — всё в одном шоу! 😄🎭</p>
+                            <a href="#contact" class="link-more">Подробнее <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="text-center button-container" data-aos="fade-up" data-aos-delay="400">
+                    <a href="#contact" class="button secondary">Обсудить ваш проект</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact-section section-padding" aria-labelledby="contact-heading">
+            <div class="container">
+                <span class="section-tag text-center" data-aos="fade-up">На связи</span>
+                <h2 id="contact-heading" data-aos="fade-up" data-aos-delay="100">Начнем ваш проект сегодня</h2>
+                <p class="section-description" data-aos="fade-up" data-aos-delay="200">
+                    Мы готовы воплотить ваши идеи в жизнь. Свяжитесь с нами для консультации или оценки проекта.
+                </p>
+
+                <div class="contact-content-grid">
+                    <div class="contact-info" data-aos="fade-right" data-aos-duration="1000">
+                        <h3>MaraMaund Studios</h3>
+                        <p><i class="fas fa-phone-alt"></i> <strong>Телефон:</strong> <a href="tel:+71234567890">+7 (123) 456-78-90</a></p>
+                        <p><i class="fas fa-envelope"></i> <strong>Email:</strong> <a href="mailto:info@maramaundstudios.ru">info@maramaundstudios.ru</a></p>
+                        <p><i class="fas fa-map-marker-alt"></i> <strong>Адрес:</strong> г. Москва, ул. Примерная, д. 10, офис 20</p>
+                        <p><i class="fas fa-clock"></i> <strong>Часы работы:</strong> Пн-Пт: 9:00 - 18:00 (GMT+3)</p>
+                        <div class="social-links">
+                            <a href="#" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="#" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                            <a href="#" target="_blank" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
+                        </div>
+                    </div>
+                    <div class="contact-form-wrapper" data-aos="fade-left" data-aos-duration="1000">
+                        <h3>Отправьте нам сообщение</h3>
+                        <form class="contact-form" action="#" method="POST">
+                            <div class="form-group">
+                                <label for="name">Ваше имя</label>
+                                <input type="text" id="name" name="name" placeholder="Иван Иванов" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Ваш Email</label>
+                                <input type="email" id="email" name="email" placeholder="email@example.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="subject">Тема сообщения</label>
+                                <input type="text" id="subject" name="subject" placeholder="Запрос по дубляжу фильма" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Ваше сообщение</label>
+                                <textarea id="message" name="message" rows="6" placeholder="Опишите ваш проект..." required></textarea>
+                            </div>
+                            <button type="submit" class="button primary">Отправить сообщение</button>
+                        </form>
+                        <p class="form-submission-message" style="display:none; text-align: center; margin-top: 20px;">
+                            <span class="success-message" style="color: green;"><i class="fas fa-check-circle"></i> Ваше сообщение успешно отправлено!</span>
+                            <span class="error-message" style="color: red; display: none;"><i class="fas fa-times-circle"></i> Произошла ошибка при отправке сообщения.</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <p>&copy; 2025 MaraMaund Studios. Все права защищены. <a href="#">Политика конфиденциальности</a></p>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="back-to-top" aria-label="Наверх">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            once: true,
+            offset: 80,
+            duration: 1000,
+            easing: 'ease-out-quad',
+        });
+
+        // Back to Top Button
+        const backToTopButton = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('show');
+            } else {
+                backToTopButton.classList.remove('show');
+            }
+        });
+
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                const headerOffset = document.querySelector('.header').offsetHeight;
+
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - headerOffset,
+                        behavior: 'smooth'
+                    });
+                }
+
+                // Close mobile menu if open
+                if (document.body.classList.contains('nav-open')) {
+                    document.body.classList.remove('nav-open');
+                    document.querySelector('.menu-toggle').classList.remove('active');
+                }
+            });
+        });
+
+        // Mobile menu toggle with keyboard support
+        const menuToggle = document.querySelector('.menu-toggle');
+        menuToggle.addEventListener('click', function() {
+            document.body.classList.toggle('nav-open');
+            this.classList.toggle('active');
+        });
+
+        menuToggle.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                this.click();
+            }
+        });
+
+        // Form submission with loading state
+        const contactForm = document.querySelector('.contact-form');
+        const formSubmissionMessage = document.querySelector('.form-submission-message');
+        const successMessage = document.querySelector('.success-message');
+        const errorMessage = document.querySelector('.error-message');
+        const submitButton = contactForm.querySelector('button[type="submit"]');
+
+        contactForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Show loading state
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Отправка...';
+
+            try {
+                // Simulate form submission
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                
+                successMessage.style.display = 'block';
+                errorMessage.style.display = 'none';
+                formSubmissionMessage.style.display = 'block';
+                contactForm.reset();
+                
+                setTimeout(() => {
+                    formSubmissionMessage.style.display = 'none';
+                }, 5000);
+            } catch (error) {
+                errorMessage.style.display = 'block';
+                successMessage.style.display = 'none';
+                formSubmissionMessage.style.display = 'block';
+            } finally {
+                // Reset button state
+                submitButton.disabled = false;
+                submitButton.innerHTML = 'Отправить сообщение';
+            }
+        });
+
+        // Add keyboard navigation support for portfolio items
+        document.querySelectorAll('.portfolio-item').forEach(item => {
+            item.setAttribute('tabindex', '0');
+            item.setAttribute('role', 'article');
+            
+            item.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    this.querySelector('a').click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
