@@ -5,42 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MaraMaund Studios - Профессиональный Дубляж</title>
     <meta name="description" content="MaraMaund Studios - ваш надежный партнер в мире профессионального дубляжа фильмов и сериалов. Качественное озвучивание, липсинк, перевод и адаптация для российского зрителя.">
-    <meta name="keywords" content="MaraMaund Studios, студия дубляжа, дубляж фильмов, озвучивание фильмов, липсинк, перевод фильмов, студия озвучки, профессиональный дубляж, озвучка сериалов, русская озвучка, студия звукозаписи, постпродакшн">
+    <meta name="keywords" content="MaraMaund Studios, студия дубляжа, дубляж фильмов, озвучивание фильмов, липсинк, перевод фильмов, студия озвучки, профессиональный дубляж, озвучка сериалов, русская озвучка, студия звукозаписи, постпродакшн, оборудование для дубляжа">
 
-    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://maramaundstudios.ru/">
     <meta property="og:title" content="MaraMaund Studios - Профессиональный Дубляж">
     <meta property="og:description" content="Профессиональный дубляж фильмов и сериалов с безупречным качеством звука и точной синхронизацией.">
     <meta property="og:image" content="https://maramaundstudios.ru/og-image.jpg">
 
-    <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://maramaundstudios.ru/">
     <meta property="twitter:title" content="MaraMaund Studios - Профессиональный Дубляж">
     <meta property="twitter:description" content="Профессиональный дубляж фильмов и сериалов с безупречным качеством звука и точной синхронизацией.">
     <meta property="twitter:image" content="https://maramaundstudios.ru/twitter-image.jpg">
 
-    <!-- Preconnect to external domains -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="preconnect" href="https://unpkg.com">
 
-    <!-- Fonts with display swap -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 
-    <!-- Favicon -->
     <link rel="icon" href="favicon.png" type="image/png">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <link rel="manifest" href="site.webmanifest">
 
-    <!-- Styles -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 
-    <!-- Structured Data -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -65,12 +58,10 @@
     }
     </script>
 
-    <!-- Preload critical assets -->
     <link rel="preload" href="fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="fonts/oswald-var.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="hero-bg.jpg" as="image">
     
-    <!-- Add meta theme-color for mobile browsers -->
     <meta name="theme-color" content="#C00000" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)">
 </head>
@@ -86,6 +77,14 @@
                 <ul>
                     <li><a href="#about">О нас</a></li>
                     <li><a href="#services">Услуги</a></li>
+                    <li class="dropdown">
+                        <a href="#equipment" class="dropdown-toggle">Оборудование <i class="fas fa-chevron-down" aria-hidden="true"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#equipment">Аудиоинтерфейсы</a></li>
+                            <li><a href="#equipment">Микрофоны</a></li>
+                            <li><a href="#equipment">XLR Шнуры</a></li>
+                        </ul>
+                    </li>
                     <li><a href="#portfolio">Портфолио</a></li>
                     <li><a href="#contact">Контакты</a></li>
                 </ul>
@@ -98,7 +97,6 @@
         </div>
     </header>
 
-    <!-- Reading Progress Bar -->
     <div class="reading-progress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
         <div class="reading-progress-bar"></div>
     </div>
@@ -185,6 +183,67 @@
                         <div class="icon-circle"><i class="fas fa-sliders-h"></i></div>
                         <h3>Звукорежиссура и сведение</h3>
                         <p>Профессиональная запись, монтаж, сведение и мастеринг аудиоматериалов.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="equipment" class="equipment-section section-padding" aria-labelledby="equipment-heading">
+            <div class="container">
+                <span class="section-tag text-center" data-aos="fade-up">Наше оборудование</span>
+                <h2 id="equipment-heading" data-aos="fade-up" data-aos-delay="100">Профессиональное Оборудование</h2>
+                <p class="section-description" data-aos="fade-up" data-aos-delay="200">
+                    Качество звука начинается с первоклассного оборудования. Мы используем только проверенные и современные решения для достижения безупречного результата.
+                </p>
+                
+                <div class="equipment-tabs" data-aos="fade-up" data-aos-delay="300">
+                    <div class="tab-nav">
+                        <button class="tab-link active" data-tab="tab-audio">Аудиоинтерфейсы</button>
+                        <button class="tab-link" data-tab="tab-mics">Микрофоны</button>
+                        <button class="tab-link" data-tab="tab-xlr">XLR Шнуры</button>
+                    </div>
+            
+                    <div class="tab-content">
+                        <div id="tab-audio" class="tab-pane active">
+                            <div class="equipment-card">
+                                <div class="equipment-gallery">
+                                    <img src="Аудиоинтерфейс Arturia MiniFuse 1.jpg" alt="Arturia MiniFuse 1 - вид спереди" class="main-image">
+                                    <div class="thumbnail-grid">
+                                        <img src="Аудиоинтерфейс Arturia MiniFuse 1.jpg" alt="Arturia MiniFuse 1 - вид спереди">
+                                        <img src="Аудиоинтерфейс Arturia MiniFuse 1 black с задиjpg.jpg" alt="Arturia MiniFuse 1 - вид сзади">
+                                        <img src="Аудиоинтерфейс Arturia MiniFuse 1 black с боку.jpg" alt="Arturia MiniFuse 1 - вид сбоку">
+                                    </div>
+                                </div>
+                                <div class="equipment-specs">
+                                    <h4>Arturia MiniFuse 1 black</h4>
+                                    <p>Компактный и мощный аудиоинтерфейс, обеспечивающий студийное качество звука. Идеален для записи вокала и инструментов с максимальной четкостью.</p>
+                                    <ul>
+                                        <li><strong>Разрядность:</strong> <span>24 бит</span></li>
+                                        <li><strong>Частота дискретизации:</strong> <span>192 кГц</span></li>
+                                        <li><strong>Фантомное питание:</strong> <span>Есть (48V)</span></li>
+                                        <li><strong>Входы:</strong> <span>1x Combo (XLR / Jack 6.3)</span></li>
+                                        <li><strong>Выходы:</strong> <span>3x Jack (6.3)</span></li>
+                                        <li><strong>Дополнительно:</strong> <span>Встроенный USB-хаб</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+            
+                        <div id="tab-mics" class="tab-pane">
+                            <div class="placeholder-item">
+                                <i class="fas fa-microphone-alt"></i>
+                                <h3>Микрофоны</h3>
+                                <p>Информация о наших студийных микрофонах скоро появится.</p>
+                            </div>
+                        </div>
+            
+                        <div id="tab-xlr" class="tab-pane">
+                            <div class="placeholder-item">
+                                <i class="fas fa-plug"></i>
+                                <h3>XLR Шнуры</h3>
+                                <p>Информация о наших кабелях скоро появится.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -283,11 +342,10 @@
 
     <footer class="footer" role="contentinfo">
         <div class="container">
-            <p>&copy; 2025 MaraMaund Studios. Все права защищены. <a href="#">Политика конфиденциальности</a></p>
+            <p>© 2025 MaraMaund Studios. Все права защищены. <a href="#">Политика конфиденциальности</a></p>
         </div>
     </footer>
 
-    <!-- Back to Top Button -->
     <button id="backToTop" class="back-to-top" aria-label="Наверх">
         <i class="fas fa-arrow-up"></i>
     </button>
@@ -321,34 +379,51 @@
         });
 
         // Smooth scrolling for navigation links
-        document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-
+                const isDropdownLink = this.closest('.dropdown-menu');
                 const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                const headerOffset = document.querySelector('.header').offsetHeight;
 
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - headerOffset,
-                        behavior: 'smooth'
-                    });
+                // If it's a dropdown link pointing to the main section, just scroll.
+                if (isDropdownLink && targetId === '#equipment') {
+                     e.preventDefault();
+                     const targetElement = document.querySelector(targetId);
+                     const headerOffset = document.querySelector('.header').offsetHeight;
+                     if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - headerOffset,
+                            behavior: 'smooth'
+                        });
+                     }
+                } else if (targetId.startsWith('#')) {
+                    e.preventDefault();
+                    const targetElement = document.querySelector(targetId);
+                    const headerOffset = document.querySelector('.header').offsetHeight;
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - headerOffset,
+                            behavior: 'smooth'
+                        });
+                    }
                 }
+
 
                 // Close mobile menu if open
                 if (document.body.classList.contains('nav-open')) {
                     document.body.classList.remove('nav-open');
                     document.querySelector('.menu-toggle').classList.remove('active');
+                    document.querySelector('.menu-toggle').setAttribute('aria-expanded', 'false');
                 }
             });
         });
 
         // Mobile menu toggle with keyboard support
         const menuToggle = document.querySelector('.menu-toggle');
+        const navMenu = document.querySelector('.nav');
         menuToggle.addEventListener('click', function() {
-            document.body.classList.toggle('nav-open');
+            const isOpened = document.body.classList.toggle('nav-open');
             this.classList.toggle('active');
+            this.setAttribute('aria-expanded', isOpened);
         });
 
         menuToggle.addEventListener('keydown', function(e) {
@@ -407,6 +482,28 @@
                 }
             });
         });
+
+        // Tabbed Equipment Section Logic
+        const tabLinks = document.querySelectorAll('.tab-link');
+        const tabPanes = document.querySelectorAll('.tab-pane');
+
+        tabLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                const tabId = link.getAttribute('data-tab');
+
+                tabLinks.forEach(item => item.classList.remove('active'));
+                link.classList.add('active');
+
+                tabPanes.forEach(pane => {
+                    if (pane.id === tabId) {
+                        pane.classList.add('active');
+                    } else {
+                        pane.classList.remove('active');
+                    }
+                });
+            });
+        });
+
     </script>
 </body>
 </html>
