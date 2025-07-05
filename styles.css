@@ -28,7 +28,8 @@
     --padding-section-mobile: 80px; /* Уменьшенное пространство для мобильных */
     --gap-grid: 40px;               /* Стандартный отступ между элементами сетки */
 
-    --transition-speed: 0.3s;
+    --transition-speed: 0.4s;
+    --transition-cubic: cubic-bezier(0.68, -0.55, 0.27, 1.55);
     --focus-outline: 3px solid var(--primary-red);
     --focus-outline-offset: 2px;
 }
@@ -134,7 +135,7 @@ a:hover {
     text-align: center;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* Custom cubic-bezier for smooth animation */
+    transition: all var(--transition-speed) cubic-bezier(0.25, 0.8, 0.25, 1); /* Custom cubic-bezier for smooth animation */
     cursor: pointer;
     box-shadow: var(--shadow-md); /* Default button shadow */
 }
@@ -245,7 +246,8 @@ a:hover {
     background: var(--primary-red);
     transition: width 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
-.nav ul li a:not(.dropdown-toggle):hover::after {
+.nav ul li a:not(.dropdown-toggle):hover::after,
+.nav ul li a:not(.dropdown-toggle):focus-visible::after {
     width: 100%; /* Underline expands on hover */
 }
 
@@ -432,8 +434,92 @@ a:hover {
     margin-bottom: 10px;
 }
 .feature-item p {
-    font-size: 1em;
     color: var(--mid-text);
+    font-size: 1em;
+}
+
+/* --- Process Section --- */
+.process-section {
+    background-color: var(--white);
+}
+
+.process-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 20px;
+}
+
+.process-card {
+    margin: 0;
+    box-shadow: var(--shadow-sm);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.process-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+}
+
+.process-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* --- Swiper Slider for Process Section --- */
+.process-slider {
+    width: 100%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.process-slider .swiper-slide {
+    background-position: center;
+    background-size: cover;
+    width: 65%;
+    height: 500px;
+    box-shadow: var(--shadow-lg);
+    border-radius: 12px;
+}
+
+.process-slider .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.process-slider .swiper-pagination-bullet {
+    background: var(--dark-text);
+    opacity: 0.7;
+}
+.process-slider .swiper-pagination-bullet-active {
+    background: var(--primary-red);
+    opacity: 1;
+}
+
+.process-slider .swiper-button-next,
+.process-slider .swiper-button-prev {
+    color: var(--white);
+    background-color: rgba(17, 17, 17, 0.6);
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.process-slider .swiper-button-next:hover,
+.process-slider .swiper-button-prev:hover {
+    background-color: var(--primary-red);
+}
+.process-slider .swiper-button-next:after,
+.process-slider .swiper-button-prev:after {
+    font-size: 1.5em;
 }
 
 /* --- Services Section Styling --- */
@@ -578,6 +664,9 @@ a:hover {
 
 .equipment-gallery .main-image {
     width: 100%;
+    height: 350px; /* Фиксированная высота для основного изображения */
+    object-fit: contain; /* Масштабирует, чтобы показать изображение полностью */
+    object-position: center;
     border-radius: 8px;
     box-shadow: var(--shadow-sm);
     margin-bottom: var(--space-sm);
@@ -592,14 +681,25 @@ a:hover {
 
 .equipment-gallery .thumbnail-grid img {
     width: 100%;
+    height: 80px; /* Возвращаю высоту, чтобы они были крупнее */
+    object-fit: contain; /* Изображение целиком, без обрезки */
+    object-position: center;
     border-radius: 5px;
     cursor: pointer;
-    border: 2px solid var(--light-border);
-    transition: border-color 0.3s ease;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    opacity: 0.7;
+    background-color: #f5f5f5; /* Светло-серый фон для аккуратности */
+}
+
+.equipment-gallery .thumbnail-grid img.active-thumb {
+    border-color: var(--primary-red);
+    opacity: 1;
 }
 
 .equipment-gallery .thumbnail-grid img:hover {
     border-color: var(--primary-red);
+    opacity: 1;
 }
 
 .equipment-specs {
@@ -620,6 +720,22 @@ a:hover {
     font-size: 1.1em;
     line-height: 1.7;
     margin-bottom: var(--space-md);
+}
+
+.card-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: -10px;
+    margin-bottom: 25px;
+}
+
+.card-buttons .button {
+    padding: 10px 22px;
+    font-size: 0.9em;
+}
+
+.card-buttons .button i {
+    margin-right: 8px;
 }
 
 .equipment-specs ul {
@@ -651,12 +767,13 @@ a:hover {
 }
 
 .placeholder-item {
-    text-align: center;
     padding: var(--space-lg);
-    color: var(--mid-text);
+    text-align: center;
+    background: var(--light-red-bg);
+    border-radius: 12px;
 }
 .placeholder-item i {
-    font-size: 3.5em;
+    font-size: 3em;
     color: var(--primary-red);
     margin-bottom: var(--space-sm);
 }
@@ -664,6 +781,132 @@ a:hover {
     color: var(--dark-text);
 }
 
+/* --- New Equipment Grid & Card Styles --- */
+.equipment-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--space-md);
+}
+
+.product-card {
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-speed) ease-in-out;
+    border: 1px solid var(--light-border);
+    overflow: hidden; /* Important for border-radius on children */
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+}
+
+.product-summary {
+    display: flex;
+    align-items: center;
+    padding: var(--space-sm);
+    cursor: pointer;
+    gap: var(--space-sm);
+    position: relative; /* For arrow positioning */
+}
+
+.summary-arrow {
+    position: absolute;
+    right: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.1em;
+    color: var(--mid-text);
+    transition: transform var(--transition-speed) var(--transition-cubic);
+}
+
+.product-card.expanded .summary-arrow {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+.product-summary-img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain; /* Масштабирует, чтобы показать изображение полностью */
+    border-radius: 8px;
+    background-color: #f0f0f0; /* Placeholder background */
+}
+
+.product-summary-info {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.product-summary-info h5 {
+    font-family: var(--font-heading);
+    font-size: 1.1em;
+    font-weight: 600;
+    margin: 0;
+    line-height: 1.2;
+    color: var(--dark-text);
+    text-transform: uppercase;
+}
+
+.product-summary-img-placeholder {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5em;
+    color: var(--mid-text);
+}
+
+.button.small-button {
+    padding: 8px 18px;
+    font-size: 0.85em;
+    border-radius: 30px;
+}
+
+.product-details {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
+    padding: 0 var(--space-md);
+    background: #fafafa;
+}
+
+.product-details .placeholder-text {
+    padding: var(--space-sm);
+    font-style: italic;
+    color: var(--mid-text);
+}
+
+/* State when the card is expanded */
+.product-card.expanded {
+    grid-column: 1 / -1; /* Span full width of the grid */
+    box-shadow: var(--shadow-lg);
+}
+
+.product-card.expanded .product-summary {
+    background-color: #f5f5f5;
+}
+
+.product-card.expanded .product-details {
+    padding: var(--space-md);
+    border-top: 1px solid var(--light-border);
+}
+
+/* Ensure the nested .equipment-card has no extra styling */
+.product-details .equipment-card {
+    display: grid; /* Use grid for layout inside expanded view */
+    grid-template-columns: 1fr 1.2fr; /* Gallery | Specs */
+    gap: var(--space-lg);
+    box-shadow: none;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+}
 
 /* --- Portfolio Section Styling --- */
 .portfolio-section {
@@ -998,26 +1241,30 @@ a:hover {
         margin-top: var(--space-md);
     }
     .about-text h2 {
-        text-align: center; /* Center heading on smaller screens */
+        text-align: left;
+    }
+
+    .process-grid {
+        column-count: 2;
     }
 
     .equipment-card {
-        flex-direction: column;
+        grid-template-columns: 1fr;
     }
     .equipment-specs {
-        padding-left: 0;
         margin-top: var(--space-md);
+        padding-top: var(--space-md);
     }
 
-    /* Grid Layouts to Single Column */
     .features-grid,
-    .services-grid,
-    .portfolio-grid,
-    .contact-content-grid {
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .portfolio-grid {
         grid-template-columns: 1fr;
     }
     .portfolio-item {
-        max-width: 550px; /* Limit width of portfolio items on single column layout */
+        max-width: 600px;
         margin: 0 auto;
     }
     .contact-info {
@@ -1072,15 +1319,15 @@ a:hover {
     }
 
     .service-item, .portfolio-info, .contact-form-wrapper {
-        padding: 30px;
+        padding: 20px;
     }
 
     .equipment-specs h4 {
-        font-size: 2em;
+        font-size: 1.8em;
     }
 
     .contact-info h3 {
-        font-size: 2em;
+        font-size: 1.5em;
     }
     .contact-info p {
         font-size: 1em;
@@ -1090,6 +1337,30 @@ a:hover {
         height: 45px;
         font-size: 1.2em;
         margin-right: 10px;
+    }
+
+    /* Responsive adjustments for new cards */
+    .product-details .equipment-card {
+        grid-template-columns: 1fr;
+    }
+    .product-summary {
+        flex-direction: column;
+        text-align: center;
+    }
+    .product-summary-info {
+        width: 100%;
+    }
+
+    .about-text h2 {
+        text-align: left;
+    }
+
+    .process-grid {
+        column-count: 1;
+    }
+
+    .equipment-card {
+        grid-template-columns: 1fr;
     }
 }
 
@@ -1179,7 +1450,7 @@ a:hover {
     visibility: hidden;
     transform: translateY(20px);
     transition: all var(--transition-speed) ease;
-    box-shadow: var(--box-shadow-medium);
+    box-shadow: var(--shadow-md);
     z-index: 99;
 }
 
@@ -1242,6 +1513,10 @@ a:focus {
     text-decoration: underline;
 }
 
+.header .nav a:focus {
+    text-decoration: none;
+}
+
 /* Improved Form Labels */
 .form-group label {
     display: block;
@@ -1270,4 +1545,76 @@ a:focus {
 .form-group input:valid:focus,
 .form-group textarea:valid:focus {
     box-shadow: 0 0 0 3px rgba(0, 200, 81, 0.1);
+}
+
+/* --- New Mic Info Content Styles --- */
+.mic-info-content {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: var(--space-sm) 0;
+}
+.mic-info-text {
+    font-size: 1.2em;
+    line-height: 1.8;
+    color: var(--mid-text);
+    margin-bottom: var(--space-md);
+    text-align: left;
+}
+.mic-info-text strong {
+    color: var(--dark-text);
+    font-weight: 600;
+}
+.mic-info-content .portfolio-grid {
+    margin-top: var(--space-md);
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Responsive grid for videos */
+}
+.mic-info-content .portfolio-item p {
+    font-size: 1em; /* Smaller font for sub-text in video card */
+}
+
+/* --- New Headphones Info Styles --- */
+.headphones-info-content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: var(--space-sm) 0;
+    text-align: center;
+}
+.headphones-info-content .info-text {
+    font-size: 1.15em;
+    line-height: 1.8;
+    color: var(--mid-text);
+    margin-bottom: var(--space-md);
+}
+.headphones-info-content .info-video-wrapper {
+    max-width: 700px;
+    margin: 0 auto var(--space-lg) auto;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+}
+
+/* --- New Audio Interface Info Styles --- */
+.audio-interface-info {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding-bottom: var(--space-md);
+    text-align: center;
+}
+.audio-interface-info p {
+    font-size: 1.15em;
+    line-height: 1.8;
+    color: var(--mid-text);
+    margin-bottom: var(--space-sm);
+}
+.audio-interface-info p:last-child {
+    margin-bottom: 0;
+}
+
+.equipment-intro {
+    text-align: center;
+    font-style: italic;
+    color: var(--mid-text);
+    margin-top: -10px; /* Pull it up slightly */
+    margin-bottom: var(--space-md);
+    font-size: 1.1em;
 }
