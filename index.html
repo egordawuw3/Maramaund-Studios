@@ -79,7 +79,7 @@
                     <li><a href="#about">О нас</a></li>
                     <li><a href="#services">Услуги</a></li>
                     <li class="dropdown">
-                        <a href="#equipment" class="dropdown-toggle">Оборудование <i class="fas fa-chevron-down" aria-hidden="true"></i></a>
+                        <a href="#" class="dropdown-toggle" id="equipmentDropdown" aria-haspopup="true" aria-expanded="false">Оборудование <i class="fas fa-chevron-down" aria-hidden="true"></i></a>
                         <ul class="dropdown-menu">
                             <li><a href="#equipment" data-tab-link="tab-audio">Аудиоинтерфейсы</a></li>
                             <li><a href="#equipment" data-tab-link="tab-mics">Микрофоны</a></li>
@@ -108,7 +108,7 @@
             <div class="container">
                 <h1 data-aos="fade-up" data-aos-duration="1200">MaraMaund Studios</h1>
                 <p data-aos="fade-up" data-aos-delay="300" data-aos-duration="1200">
-                    Озвучиваем фильмы и сериалы. <br> Просто и с душой.
+                    Озвучиваем анимационные мультфильмы — дома, для души и собственного удовольствия.
                 </p>
                 <a href="#portfolio" class="button primary" data-aos="zoom-in" data-aos-delay="600" data-aos-duration="1200">Смотреть работы</a>
             </div>
@@ -120,7 +120,7 @@
                     <div class="about-text" data-aos="fade-right" data-aos-duration="1000">
                         <span class="section-tag">О нас</span>
                         <h2 id="about-heading">Наша студия</h2>
-                        <p>Мы — небольшая команда, которая любит кино и хороший звук. Занимаемся дубляжом фильмов, сериалов и мультиков, чтобы их было приятно смотреть на русском языке.</p>
+                        <p>Мы — небольшая домашняя команда, которая любит анимацию и хороший звук. Озвучиваем мультфильмы для собственного интереса и удовольствия, не для коммерции.</p>
                         <p>Работаем на совесть: подбираем голоса, следим за тем, чтобы слова совпадали с движением губ, и стараемся передать все шутки и эмоции так, как было в оригинале.</p>
                     </div>
                     <div class="about-image" data-aos="fade-left" data-aos-duration="1000">
@@ -980,6 +980,25 @@
                 nextEl: '.swiper-button-next',
                 prevEl: '.swiper-button-prev',
             },
+        });
+
+        // Открытие/закрытие выпадающего меню "Оборудование" по клику
+        const dropdownToggle = document.querySelector('.dropdown-toggle');
+        const dropdownMenu = document.querySelector('.dropdown-menu');
+        dropdownToggle.addEventListener('click', function(e) {
+            e.preventDefault(); // Не скроллить!
+            dropdownMenu.classList.toggle('open');
+            // Для доступности:
+            const expanded = dropdownToggle.getAttribute('aria-expanded') === 'true';
+            dropdownToggle.setAttribute('aria-expanded', !expanded);
+        });
+
+        // Закрывать меню при клике вне его
+        document.addEventListener('click', function(e) {
+            if (!dropdownToggle.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                dropdownMenu.classList.remove('open');
+                dropdownToggle.setAttribute('aria-expanded', 'false');
+            }
         });
     </script>
 </body>
