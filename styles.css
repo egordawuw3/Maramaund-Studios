@@ -1251,6 +1251,10 @@ a:hover {
     .process-grid {
         column-count: 2;
     }
+    
+    .process-slider .swiper-slide {
+        width: 70%; /* Adjust slide width for tablets */
+    }
 
     .equipment-card {
         grid-template-columns: 1fr;
@@ -1284,6 +1288,10 @@ a:hover {
 @media (max-width: 768px) {
     .container {
         padding: 0 var(--space-sm); /* Smaller padding on tablets */
+    }
+    .process-slider .swiper-slide {
+        width: 90%; /* Slides take more width on mobile */
+        height: 400px;
     }
     .hero-section {
         padding: 120px 0 100px;
@@ -1343,16 +1351,13 @@ a:hover {
         margin-right: 10px;
     }
 
-    /* Responsive adjustments for new cards */
-    .product-details .equipment-card {
-        grid-template-columns: 1fr;
-    }
     .product-summary {
         flex-direction: column;
         text-align: center;
     }
     .product-summary-info {
         width: 100%;
+        justify-content: center; /* Center title text */
     }
 
     .about-text h2 {
@@ -1362,10 +1367,46 @@ a:hover {
     .process-grid {
         column-count: 1;
     }
-
-    .equipment-card {
-        grid-template-columns: 1fr;
+    
+    /* --- MOBILE FIXES FOR PRODUCT CARDS --- */
+    .equipment-grid {
+        grid-template-columns: 1fr; /* Stack cards vertically */
     }
+
+    .product-card.expanded {
+        grid-column: auto;
+    }
+
+    .product-card.expanded .product-details {
+        max-height: 1500px; /* Large value to prevent content clipping */
+    }
+    
+    .product-details .equipment-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .product-details .equipment-gallery {
+       width: 100%;
+       max-width: 350px;
+    }
+
+    .product-details .equipment-specs {
+        width: 100%;
+        padding-left: 0;
+        text-align: center;
+    }
+    
+    .equipment-specs ul li {
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+    }
+    .equipment-specs ul li span {
+        text-align: center;
+    }
+    /* --- END MOBILE FIXES --- */
 }
 
 @media (max-width: 480px) {
@@ -1374,6 +1415,9 @@ a:hover {
     }
     .hero-section p {
         font-size: 0.9em;
+    }
+    .process-slider .swiper-slide {
+        height: 250px;
     }
     .header .logo a {
         font-size: 1.8em;
@@ -1621,45 +1665,4 @@ a:focus {
     margin-top: -10px; /* Pull it up slightly */
     margin-bottom: var(--space-md);
     font-size: 1.1em;
-}
-
-.nav .dropdown-menu {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: var(--black);
-    list-style: none;
-    padding: 10px 0;
-    margin-top: 20px;
-    width: 240px;
-    border-radius: 8px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.5);
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, margin-top 0.3s ease, visibility 0.3s;
-    z-index: 1001;
-}
-.nav .dropdown-menu.open {
-    display: block;
-    opacity: 1;
-    visibility: visible;
-    margin-top: 15px;
-}
-.nav .dropdown-menu li {
-    margin: 0;
-    width: 100%;
-}
-.nav .dropdown-menu li a {
-    display: block;
-    padding: 12px 25px;
-    font-size: 1.05em;
-    text-align: left;
-    white-space: nowrap;
-    width: 100%;
-}
-.nav .dropdown-menu li a:hover {
-    background-color: var(--primary-red);
-    color: var(--white);
 }
