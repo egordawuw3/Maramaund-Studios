@@ -188,16 +188,22 @@ a:hover {
 
 /* --- Header Section Styling --- */
 .header {
-    background: var(--black);
-    color: var(--white);
-    padding: 22px 0;
+    background: transparent; /* Start transparent */
+    padding: 30px 0; /* Initial larger padding */
     position: fixed;
     width: 100%;
     top: 0;
     left: 0;
-    z-index: 1000; /* Ensures header is always on top */
+    z-index: 1000;
+    transition: background-color 0.4s ease, padding 0.4s ease, box-shadow 0.4s ease;
+}
+
+.header.scrolled {
+    background: var(--black);
+    padding: 22px 0;
     box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
+
 
 .header .container {
     display: flex;
@@ -343,7 +349,7 @@ a:hover {
 
 /* --- Hero Section Styling --- */
 .hero-section {
-    background: url('hero-bg.jpg') center center/cover no-repeat fixed; /* Parallax effect */
+    background: url('../assets/images/hero-bg.jpg') center center/cover no-repeat fixed; /* Parallax effect */
     color: var(--white);
     text-align: center;
     padding: 250px 0 200px;
@@ -793,6 +799,7 @@ a:hover {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: var(--space-md);
+    align-items: stretch; /* Make cards in a row the same height */
 }
 
 .product-card {
@@ -816,6 +823,7 @@ a:hover {
     cursor: pointer;
     gap: var(--space-sm);
     position: relative; /* For arrow positioning */
+    flex-grow: 1; /* Allow summary to grow to fill card height */
 }
 
 .summary-arrow {
@@ -855,6 +863,28 @@ a:hover {
     color: var(--dark-text);
     text-transform: uppercase;
 }
+
+.product-title-restructure {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    gap: 4px; /* Space between brand and name */
+}
+
+.product-title-restructure .product-brand {
+    font-size: 0.8em;
+    font-weight: 500;
+    color: var(--mid-text);
+    text-transform: uppercase;
+}
+
+.product-title-restructure .product-name {
+    font-size: 1em; /* Adjust as needed */
+    font-weight: 700;
+    color: var(--dark-text);
+}
+
 
 .product-summary-img-placeholder {
     width: 80px;
@@ -1984,6 +2014,9 @@ a:focus {
     font-size: 1.05em;
     color: #ddd;
     padding: 4px 0;
+    -webkit-column-break-inside: avoid;
+    page-break-inside: avoid;
+    break-inside: avoid;
 }
 
 .project-modal-cast-list strong {
@@ -2056,6 +2089,40 @@ a:focus {
     box-shadow: 0 0 15px rgba(176, 0, 0, 0.4);
 }
 
+/* --- Coming Soon Modal --- */
+.coming-soon-content {
+    background: linear-gradient(135deg, #232526 0%, #414345 100%);
+    color: var(--white);
+    text-align: center;
+    padding: var(--space-lg) var(--space-md);
+    border-radius: 12px;
+    border: 1px solid #555;
+}
+
+.coming-soon-content h2 {
+    font-size: 2.8em;
+    color: var(--white);
+    margin-bottom: 15px;
+}
+
+.coming-soon-content p {
+    font-size: 1.3em;
+    color: #ccc;
+    margin-bottom: var(--space-md);
+}
+
+.coming-soon-content .fas.fa-hourglass-half {
+    font-size: 4em;
+    color: var(--primary-red);
+    animation: spin 3s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+
 @media (max-width: 992px) {
     .project-modal-header {
         flex-direction: column;
@@ -2102,4 +2169,10 @@ a:focus {
     .project-modal-cast-list li {
         font-size: 1em;
     }
+}
+
+.portfolio-grid .portfolio-item:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    max-width: 50%;
+    margin: 0 auto;
 }
