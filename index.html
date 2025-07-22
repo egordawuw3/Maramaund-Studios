@@ -3,6 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self'; 
+        script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net/npm/swiper@11 https://unpkg.com/aos@2.3.1;
+        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/ https://unpkg.com/aos@2.3.1/ https://cdn.jsdelivr.net/npm/swiper@11;
+        font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/;
+        img-src 'self' data: https://pop-music.ru;
+        frame-src 'self' https://www.youtube.com;
+        connect-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com https://cdnjs.cloudflare.com;
+    ">
     <title>MaraMaund Studios - Профессиональный Дубляж</title>
     <meta name="description" content="MaraMaund Studios - ваш надежный партнер в мире профессионального дубляжа фильмов и сериалов. Качественное озвучивание, липсинк, перевод и адаптация для российского зрителя.">
     <meta name="keywords" content="MaraMaund Studios, студия дубляжа, дубляж фильмов, озвучивание фильмов, липсинк, перевод фильмов, студия озвучки, профессиональный дубляж, озвучка сериалов, русская озвучка, студия звукозаписи, постпродакшн, оборудование для дубляжа">
@@ -31,9 +40,9 @@
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <link rel="manifest" href="site.webmanifest">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" integrity="sha512-iM8BuX/cgDdJrtldMsURe+2AflsBiSFxYCooBChS+f9aOCoJu/zyAFH8SPoLtdrFBLeP9bCoCoJ5CGUifcBIvw==" crossorigin="anonymous" />
     <link rel="stylesheet" href="css/styles.css">
 
     <script type="application/ld+json">
@@ -564,7 +573,10 @@
                                     <div class="product-summary">
                                         <img src="assets/images/headphones/PRESONUS HD7/наушники10.webp" alt="PRESONUS HD7" class="product-summary-img" width="80" height="80">
                                         <div class="product-summary-info">
-                                            <h5>PRESONUS HD7</h5>
+                                            <h5 class="product-title-restructure">
+                                                <span class="product-brand">PRESONUS</span>
+                                                <span class="product-name">HD7</span>
+                                            </h5>
                                         </div>
                                         <div class="summary-arrow"><i class="fas fa-chevron-down"></i></div>
                                     </div>
@@ -598,7 +610,10 @@
                                     <div class="product-summary">
                                         <img src="assets/images/headphones/Behringer OMEGA/наушники20.webp" alt="Behringer OMEGA" class="product-summary-img" width="80" height="80">
                                         <div class="product-summary-info">
-                                            <h5>Behringer HPM1100-BK</h5>
+                                            <h5 class="product-title-restructure">
+                                                <span class="product-brand">Behringer</span>
+                                                <span class="product-name">HPM1100-BK</span>
+                                            </h5>
                                         </div>
                                         <div class="summary-arrow"><i class="fas fa-chevron-down"></i></div>
                                     </div>
@@ -631,7 +646,10 @@
                                     <div class="product-summary">
                                         <img src="assets/images/headphones/AUDIO-TECHNICA ATH-M20X/наушники.webp" alt="AUDIO-TECHNICA ATH-M20X" class="product-summary-img" width="80" height="80">
                                         <div class="product-summary-info">
-                                            <h5>AUDIO-TECHNICA ATH-M20X</h5>
+                                            <h5 class="product-title-restructure">
+                                                <span class="product-brand">AUDIO-TECHNICA</span>
+                                                <span class="product-name">ATH-M20X</span>
+                                            </h5>
                                         </div>
                                         <div class="summary-arrow"><i class="fas fa-chevron-down"></i></div>
                                     </div>
@@ -665,7 +683,10 @@
                                     <div class="product-summary">
                                         <img src="assets/images/headphones/AKG K72/наушники 7webp.webp" alt="AKG K72" class="product-summary-img" width="80" height="80">
                                         <div class="product-summary-info">
-                                            <h5>AKG K72</h5>
+                                            <h5 class="product-title-restructure">
+                                                <span class="product-brand">AKG</span>
+                                                <span class="product-name">K72</span>
+                                            </h5>
                                         </div>
                                         <div class="summary-arrow"><i class="fas fa-chevron-down"></i></div>
                                     </div>
@@ -713,7 +734,10 @@
                                     <div class="product-summary">
                                         <img src="assets/images/XLR/Klotz GRG1FM03.0/кабель.webp" alt="Klotz Greyhound" class="product-summary-img" width="80" height="80">
                                         <div class="product-summary-info">
-                                            <h5>Klotz Greyhound</h5>
+                                            <h5 class="product-title-restructure">
+                                                <span class="product-brand">Klotz</span>
+                                                <span class="product-name">Greyhound</span>
+                                            </h5>
                                         </div>
                                         <div class="summary-arrow"><i class="fas fa-chevron-down"></i></div>
                                     </div>
@@ -747,7 +771,10 @@
                                     <div class="product-summary">
                                         <img src="assets/images/XLR/Bespeco TT100FM/кабель 4.webp" alt="Bespeco TT100FM" class="product-summary-img" width="80" height="80">
                                         <div class="product-summary-info">
-                                            <h5>Bespeco TT100FM</h5>
+                                            <h5 class="product-title-restructure">
+                                                <span class="product-brand">Bespeco</span>
+                                                <span class="product-name">TT100FM</span>
+                                            </h5>
                                         </div>
                                         <div class="summary-arrow"><i class="fas fa-chevron-down"></i></div>
                                     </div>
@@ -780,7 +807,10 @@
                                     <div class="product-summary">
                                         <img src="assets/images/XLR/Planet Waves PW CMIC10/картинка 6.webp" alt="Planet Waves Classic" class="product-summary-img" width="80" height="80">
                                         <div class="product-summary-info">
-                                            <h5>Planet Waves Classic</h5>
+                                            <h5 class="product-title-restructure">
+                                                <span class="product-brand">Planet Waves</span>
+                                                <span class="product-name">Classic</span>
+                                            </h5>
                                         </div>
                                         <div class="summary-arrow"><i class="fas fa-chevron-down"></i></div>
                                     </div>
@@ -818,18 +848,21 @@
                                     <div class="product-summary">
                                         <img src="https://pop-music.ru/upload/resize_cache/iblock/043/417_378_1/uxpvxqjfqp3gbcd204arlth3piqsgsw5.jpg" alt="Steinberg IXO 22 Recording Pack" class="product-summary-img">
                                         <div class="product-summary-info">
-                                            <h5>Steinberg IXO 22 Recording Pack</h5>
+                                            <h5 class="product-title-restructure">
+                                                <span class="product-brand">Steinberg</span>
+                                                <span class="product-name">IXO 22 Recording Pack</span>
+                                            </h5>
                                         </div>
                                         <div class="summary-arrow"><i class="fas fa-chevron-down"></i></div>
                                     </div>
                                     <div class="product-details">
                                         <div class="equipment-card">
                                             <div class="equipment-gallery">
-                                                <img src="assets/images/recording-kits/Steinberg IXO 22 /full.png" alt="Steinberg IXO 22 Recording Pack" class="main-image">
+                                                <img src="assets/images/recording-kits/Steinberg-IXO-22/full.png" alt="Steinberg IXO 22 Recording Pack" class="main-image">
                                                 <div class="thumbnail-grid">
-                                                    <img src="assets/images/recording-kits/Steinberg IXO 22 /sdk.png" alt="Steinberg IXO 22 - Аудиоинтерфейс" class="active-thumb">
-                                                    <img src="assets/images/recording-kits/Steinberg IXO 22 /micro.png" alt="Steinberg IXO 22 - Микрофон">
-                                                    <img src="assets/images/recording-kits/Steinberg IXO 22 /headphones.png" alt="Steinberg IXO 22 - Наушники">
+                                                    <img src="assets/images/recording-kits/Steinberg-IXO-22/sdk.png" alt="Steinberg IXO 22 - Аудиоинтерфейс" class="active-thumb">
+                                                    <img src="assets/images/recording-kits/Steinberg-IXO-22/micro.png" alt="Steinberg IXO 22 - Микрофон">
+                                                    <img src="assets/images/recording-kits/Steinberg-IXO-22/headphones.png" alt="Steinberg IXO 22 - Наушники">
                                                 </div>
                                             </div>
                                             <div class="equipment-specs">
@@ -847,7 +880,10 @@
                                     <div class="product-summary">
                                         <img src="https://pop-music.ru/upload/resize_cache/iblock/476/417_378_1/lg0lg58vt28a4h6by7j0933iwjrbralt.jpg" alt="FOCUSRITE Scarlett Solo Studio 4th Gen" class="product-summary-img">
                                         <div class="product-summary-info">
-                                            <h5>FOCUSRITE Scarlett Solo Studio 4th Gen</h5>
+                                            <h5 class="product-title-restructure">
+                                                <span class="product-brand">FOCUSRITE</span>
+                                                <span class="product-name">Scarlett Solo Studio 4th Gen</span>
+                                            </h5>
                                         </div>
                                         <div class="summary-arrow"><i class="fas fa-chevron-down"></i></div>
                                     </div>
@@ -871,7 +907,10 @@
                                     <div class="product-summary">
                                         <img src="https://pop-music.ru/upload/resize_cache/iblock/fdf/417_378_1/klmqx7g46ehw3tg4ivfbeu4kyqmojr0q.jpg" alt="ARTURIA MiniFuse Recording Pack Black" class="product-summary-img">
                                         <div class="product-summary-info">
-                                            <h5>ARTURIA MiniFuse Recording Pack</h5>
+                                            <h5 class="product-title-restructure">
+                                                <span class="product-brand">ARTURIA</span>
+                                                <span class="product-name">MiniFuse Recording Pack</span>
+                                            </h5>
                                         </div>
                                         <div class="summary-arrow"><i class="fas fa-chevron-down"></i></div>
                                     </div>
@@ -1063,8 +1102,8 @@
         <i class="fas fa-arrow-up"></i>
     </button>
 
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" integrity="sha512-IValev1a420hgb8L3+HqXF9ML2n7PMYfDDyD2i/hHdsbl2bNmyq+eC9JbB+Dq0bABKjBvM1qzIuypA1S/7D0mw==" crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous" defer></script>
     <script src="js/main.js" defer></script>
 </body>
 </html>
