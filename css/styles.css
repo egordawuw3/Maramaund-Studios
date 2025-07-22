@@ -799,7 +799,6 @@ a:hover {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: var(--space-md);
-    align-items: stretch; /* Make cards in a row the same height */
 }
 
 .product-card {
@@ -823,7 +822,6 @@ a:hover {
     cursor: pointer;
     gap: var(--space-sm);
     position: relative; /* For arrow positioning */
-    flex-grow: 1; /* Allow summary to grow to fill card height */
 }
 
 .summary-arrow {
@@ -863,28 +861,6 @@ a:hover {
     color: var(--dark-text);
     text-transform: uppercase;
 }
-
-.product-title-restructure {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    text-align: left;
-    gap: 4px; /* Space between brand and name */
-}
-
-.product-title-restructure .product-brand {
-    font-size: 0.8em;
-    font-weight: 500;
-    color: var(--mid-text);
-    text-transform: uppercase;
-}
-
-.product-title-restructure .product-name {
-    font-size: 1em; /* Adjust as needed */
-    font-weight: 700;
-    color: var(--dark-text);
-}
-
 
 .product-summary-img-placeholder {
     width: 80px;
