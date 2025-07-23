@@ -137,18 +137,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // --- Modal Logic ---
     const projectModal = document.getElementById('project-modal');
-    const projectModalCloseBtn = document.getElementById('project-modal-close');
+    const projectModalClose = document.getElementById('project-modal-close');
     const projectModalIframe = document.getElementById('project-modal-iframe');
-    
+    const projectBanners = document.querySelectorAll('.portfolio-banner');
     const comingSoonModal = document.getElementById('coming-soon-modal');
-    const comingSoonModalCloseBtn = document.getElementById('coming-soon-modal-close');
+    const comingSoonModalClose = document.getElementById('coming-soon-modal-close');
 
-const projects = {
+    const projectData = {
         circus: {
             title: "Удивительный Цифровой Цирк",
             description: "«Удивительный цифровой цирк» — это мультсериал в жанре психологической тёмной ко-медии о персонажах, запертых в виртуальной реальности. Главная героиня, Помни, ищет выход вместе с другими узниками, сталкиваясь с эксцентричным искусственным интеллектом, который управляет их миром.",
-            poster: "assets/images/russian-works/circus_poster.png",
-            trailerUrl: "https://www.youtube.com/embed/j8GWluNJ_78", // Изменено с trailerId на trailerUrl
+            poster: "assets/images/russian-works/Cuirk.png",
+            trailerUrl: "https://www.youtube.com/embed/j8GWluNJ_78",
             ratings: {
                 imdb: { score: 8.0, votes: "7 100" },
                 kinopoisk: { score: 8.17, votes: "26 814" }
@@ -157,10 +157,6 @@ const projects = {
             country: "Австралия, США",
             director: "Gooseworx",
             genres: ["Комедии", "Фэнтези", "Фантастика", "Приключения", "Триллеры", "Ужасы", "Детективы", "Мультсериалы", "Зарубежные"],
-            quality: "720p",
-            ageRating: "14+ взрослые темы и понятия, неподходящие для детей",
-            duration: "25 мин.",
-            seriesInfo: ["Мультфильмы 2023 года", "Мультфильмы про игрушки", "Мультфильмы про монстров"],
             cast: ["Алекс Рошон", "Майкл Ковач", "Аманда Хаффорд", "Марисса Ленти", "Эшли Николс", "Gooseworx", "Лиззи Фриман", "Шон Чиплок", "Джек Хоукинс", "Morgane Brehamel", "и другие"],
             dubTeam: [
                 { character: "Помни", actor: "Liska" },
@@ -172,7 +168,8 @@ const projects = {
                 { character: "Зубл", actor: "Batareika" },
             ],
             episodes: [
-                { name: "Пилот", url: "https://www.youtube.com/embed/yXectSBcUKE" } // Изменено с id на url
+                { title: "Пилот", url: "https://www.youtube.com/embed/yXectSBcUKE" },
+                { title: "Серия 2 (скоро)", url: "" }
             ]
         }
     };
@@ -188,59 +185,78 @@ const projects = {
         return html;
     }
 
-    function openProjectModal(key) {
-        const data = projects[key];
-        if (!data) return;
+    function openProjectModal(project) {
+        if (!project) return;
         
-        document.getElementById('project-modal-title').textContent = data.title;
-        document.getElementById('project-modal-description').textContent = data.description;
-        document.getElementById('project-modal-poster-img').src = data.poster;
-        document.getElementById('project-modal-poster-img').closest('.project-modal-poster').style.backgroundImage = `url('${data.poster}')`;
+        document.getElementById('project-modal-title').textContent = project.title;
+        document.getElementById('project-modal-poster-img').src = project.poster;
+        document.getElementById('project-modal-description').textContent = project.description;
 
         const ratingsEl = document.getElementById('project-modal-ratings');
         ratingsEl.innerHTML = '';
-        if(data.ratings.imdb) ratingsEl.innerHTML += `<div class="rating-item"><span class="rating-source">IMDb:</span><span class="rating-score">${data.ratings.imdb.score.toFixed(1)}</span><div class="rating-stars">${generateStars(data.ratings.imdb.score)}</div><span class="rating-votes">(${data.ratings.imdb.votes})</span></div>`;
-        if(data.ratings.kinopoisk) ratingsEl.innerHTML += `<div class="rating-item"><span class="rating-source">Кинопоиск:</span><span class="rating-score">${data.ratings.kinopoisk.score.toFixed(2)}</span><div class="rating-stars">${generateStars(data.ratings.kinopoisk.score)}</div><span class="rating-votes">(${data.ratings.kinopoisk.votes})</span></div>`;
-
-        document.getElementById('project-modal-meta').innerHTML = `<ul><li><strong>Дата выхода:</strong> ${data.releaseDate}</li><li><strong>Страна:</strong> ${data.country}</li><li><strong>Режиссер:</strong> ${data.director}</li><li><strong>Жанр:</strong> ${data.genres.join(', ')}</li></ul>`;
-        document.getElementById('project-modal-cast').innerHTML = '<li>' + data.cast.join(', ') + '</li>';
-        
-        const dubTeamEl = document.getElementById('project-modal-dub-team');
-        dubTeamEl.innerHTML = '';
-        data.dubTeam.forEach(m => dubTeamEl.innerHTML += `<li><strong>${m.character}:</strong> ${m.actor}</li>`);
-
-        const episodeSelector = document.getElementById('episode-selector');
-        episodeSelector.innerHTML = '';
-        data.episodes.forEach(ep => {
-            const btn = document.createElement('button');
-            btn.className = 'button small-button';
-            btn.innerHTML = `<i class="fas fa-play"></i> ${ep.name}`;
-            btn.onclick = () => {
-                playVideo(ep.url, true);
-                episodeSelector.querySelectorAll('.button').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-            };
-            episodeSelector.appendChild(btn);
-        });
-        
-        document.getElementById('project-modal-trailer-btn').onclick = () => playVideo(data.trailerUrl, true);
-        if (data.episodes.length > 0) {
-            playVideo(data.episodes[0].url, false);
-            if(episodeSelector.firstChild) episodeSelector.firstChild.classList.add('active');
+        if (project.ratings && project.ratings.imdb) {
+            ratingsEl.innerHTML += `<div class="rating-item"><span class="rating-source">IMDb:</span><span class="rating-score">${project.ratings.imdb.score.toFixed(1)}</span><div class="rating-stars">${generateStars(project.ratings.imdb.score)}</div><span class="rating-votes">(${project.ratings.imdb.votes})</span></div>`;
+        }
+        if (project.ratings && project.ratings.kinopoisk) {
+            ratingsEl.innerHTML += `<div class="rating-item"><span class="rating-source">Кинопоиск:</span><span class="rating-score">${project.ratings.kinopoisk.score.toFixed(2)}</span><div class="rating-stars">${generateStars(project.ratings.kinopoisk.score, 10)}</div><span class="rating-votes">(${project.ratings.kinopoisk.votes})</span></div>`;
         }
 
-        projectModal.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-    }
+        const metaEl = document.getElementById('project-modal-meta');
+        metaEl.innerHTML = `<ul>
+            ${project.releaseDate ? `<li><strong>Дата выхода:</strong> ${project.releaseDate}</li>` : ''}
+            ${project.country ? `<li><strong>Страна:</strong> ${project.country}</li>` : ''}
+            ${project.director ? `<li><strong>Режиссер:</strong> ${project.director}</li>` : ''}
+            ${project.genres ? `<li><strong>Жанр:</strong> ${project.genres.join(', ')}</li>` : ''}
+        </ul>`;
 
-    function playVideo(url, autoplay) {
-        projectModalIframe.src = `${url}${autoplay ? '&autoplay=1' : ''}`;
+        const castEl = document.getElementById('project-modal-cast');
+        castEl.innerHTML = '';
+        if (project.cast && project.cast.length > 0) {
+            castEl.innerHTML = '<li>' + project.cast.join(', ') + '</li>';
+        }
+
+        const dubTeamEl = document.getElementById('project-modal-dub-team');
+        dubTeamEl.innerHTML = '';
+        if (project.dubTeam && project.dubTeam.length > 0) {
+            project.dubTeam.forEach(m => {
+                if (typeof m === 'object' && m.character) {
+                    dubTeamEl.innerHTML += `<li><strong>${m.character}:</strong> ${m.actor}</li>`;
+                } else {
+                    dubTeamEl.innerHTML += `<li>${m}</li>`;
+                }
+            });
+        }
+        
+        const episodeSelector = document.getElementById('episode-selector');
+        episodeSelector.innerHTML = '';
+        project.episodes.forEach((ep, index) => {
+            const btn = document.createElement('button');
+            btn.className = 'button small-button episode-btn';
+            btn.innerHTML = `<i class="fas fa-play"></i> ${ep.title}`;
+
+            if (index === 0) btn.classList.add('active');
+            btn.disabled = !ep.url;
+            btn.addEventListener('click', () => {
+                projectModalIframe.src = ep.url;
+                document.querySelectorAll('.episode-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+            episodeSelector.appendChild(btn);
+        });
+
+        const trailerBtn = document.getElementById('project-modal-trailer-btn');
+        trailerBtn.onclick = () => {
+            projectModalIframe.src = project.trailerUrl;
+            document.querySelectorAll('.episode-btn').forEach(b => b.classList.remove('active'));
+        };
+        
+        projectModalIframe.src = project.episodes[0]?.url || project.trailerUrl;
+        projectModal.style.display = 'flex';
     }
 
     function closeProjectModal() {
-        if(projectModal) projectModal.style.display = 'none';
-        if(projectModalIframe) projectModalIframe.src = '';
-        document.body.style.overflow = 'auto';
+        projectModal.style.display = 'none';
+        projectModalIframe.src = ''; 
     }
 
     function openComingSoonModal() {
@@ -253,21 +269,22 @@ const projects = {
         document.body.style.overflow = 'auto';
     }
 
-    document.querySelectorAll('.portfolio-banner').forEach(item => {
-        item.addEventListener('click', () => {
-            const projectKey = item.dataset.project;
+    projectBanners.forEach(banner => {
+        banner.addEventListener('click', () => {
+            const projectKey = banner.dataset.project;
             if (projectKey === 'coming-soon') {
-                openComingSoonModal();
-            } else if (projectKey && projects[projectKey]) {
-                openProjectModal(projectKey);
+                comingSoonModal.style.display = 'flex';
+            } else {
+                const data = projectData[projectKey];
+                openProjectModal(data);
             }
         });
     });
 
-    if(projectModalCloseBtn) projectModalCloseBtn.addEventListener('click', closeProjectModal);
+    if(projectModalClose) projectModalClose.addEventListener('click', closeProjectModal);
     if(projectModal) projectModal.addEventListener('click', e => { if (e.target === projectModal) closeProjectModal(); });
     
-    if(comingSoonModalCloseBtn) comingSoonModalCloseBtn.addEventListener('click', closeComingSoonModal);
+    if(comingSoonModalClose) comingSoonModalClose.addEventListener('click', closeComingSoonModal);
     if(comingSoonModal) comingSoonModal.addEventListener('click', e => { if (e.target === comingSoonModal) closeComingSoonModal(); });
 
     document.addEventListener('keydown', (e) => {

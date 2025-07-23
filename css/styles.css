@@ -1847,9 +1847,6 @@ a:focus {
     height: 600px; /* Maintain aspect ratio */
     flex-shrink: 0;
     transition: transform 0.3s ease;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
     margin: -1px; /* Final attempt to fix rendering gap bug */
 }
 .project-modal-poster:hover {
@@ -1857,7 +1854,10 @@ a:focus {
 }
 
 .project-modal-poster img {
-    display: none; /* We will use the background-image property on the parent instead */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
 .project-modal-details {
