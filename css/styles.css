@@ -484,6 +484,7 @@ a:hover {
     width: 100%;
     padding-top: 50px;
     padding-bottom: 50px;
+    overflow: hidden;
 }
 
 .process-slider .swiper-slide {
@@ -1254,7 +1255,7 @@ a:hover {
         margin-top: var(--space-md);
     }
     .about-text h2 {
-        text-align: left;
+        text-align: center;
     }
 
     .process-grid {
@@ -1262,7 +1263,8 @@ a:hover {
     }
     
     .process-slider .swiper-slide {
-        width: 70%; /* Adjust slide width for tablets */
+        width: 80%; /* Adjust slide width for tablets */
+        height: 450px;
     }
 
     .equipment-card {
@@ -1300,7 +1302,7 @@ a:hover {
     }
     .process-slider .swiper-slide {
         width: 90%; /* Slides take more width on mobile */
-        height: 400px;
+        height: 320px;
     }
     .hero-section {
         padding: 120px 0 100px;
@@ -1370,7 +1372,7 @@ a:hover {
     }
 
     .about-text h2 {
-        text-align: left;
+        text-align: center;
     }
 
     .process-grid {
@@ -1418,6 +1420,16 @@ a:hover {
     /* --- END MOBILE FIXES --- */
 }
 
+@media (max-width: 576px) {
+    .features-grid,
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+    .contact-form-wrapper {
+        padding: 25px;
+    }
+}
+
 @media (max-width: 480px) {
     .hero-section h1 {
         font-size: 2.5em;
@@ -1426,7 +1438,12 @@ a:hover {
         font-size: 0.9em;
     }
     .process-slider .swiper-slide {
-        height: 250px;
+        height: 220px;
+        box-shadow: var(--shadow-md);
+    }
+    .process-slider .swiper-button-next,
+    .process-slider .swiper-button-prev {
+        display: none;
     }
     .header .logo a {
         font-size: 1.8em;
@@ -1453,6 +1470,12 @@ a:hover {
     /* Adjustments for extremely small screens */
     .container {
         padding: 0 15px;
+    }
+    .portfolio-grid {
+        grid-template-columns: 1fr;
+    }
+    .portfolio-banner {
+        max-width: 100%;
     }
 }
 
@@ -2145,10 +2168,4 @@ a:focus {
     .project-modal-cast-list li {
         font-size: 1em;
     }
-}
-
-.portfolio-grid .portfolio-item:last-child:nth-child(odd) {
-    grid-column: 1 / -1;
-    max-width: 50%;
-    margin: 0 auto;
 }

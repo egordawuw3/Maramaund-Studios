@@ -127,8 +127,16 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.product-details .thumbnail-grid img').forEach(thumb => {
         thumb.addEventListener('click', function(event) {
             event.stopPropagation();
+            
+            // On-demand loading
+            if (this.dataset.src) {
+                this.src = this.dataset.src;
+                delete this.dataset.src;
+            }
+
             const mainImage = this.closest('.equipment-gallery').querySelector('.main-image');
             mainImage.src = this.src;
+            
             const galleryThumbs = this.closest('.thumbnail-grid').querySelectorAll('img');
             galleryThumbs.forEach(t => t.classList.remove('active-thumb'));
             this.classList.add('active-thumb');
