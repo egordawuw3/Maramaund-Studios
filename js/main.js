@@ -1,8 +1,9 @@
 document.addEventListener('DOMContentLoaded', function () {
+
     // --- Инициализация библиотеки анимаций при скролле ---
     AOS.init({
         once: true,
-        duration: 1000,
+        duration: 800,
         easing: 'ease-out-cubic'
     });
 
@@ -10,11 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const header = document.querySelector('.header');
     if (header) {
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
+            header.classList.toggle('scrolled', window.scrollY > 50);
         });
     }
 
@@ -22,47 +19,43 @@ document.addEventListener('DOMContentLoaded', function () {
     const backToTopButton = document.getElementById('backToTop');
     if (backToTopButton) {
         window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 300) {
-                backToTopButton.classList.add('show');
-            } else {
-                backToTopButton.classList.remove('show');
-            }
+            backToTopButton.classList.toggle('show', window.pageYOffset > 300);
         });
-
         backToTopButton.addEventListener('click', (e) => {
             e.preventDefault();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     }
-    
-    // --- Индикатор прогресса чтения страницы ---
-    const readingProgressBar = document.querySelector('.reading-progress-bar');
-    const readingProgress = document.querySelector('.reading-progress');
-    if (readingProgressBar && readingProgress) {
-        window.addEventListener('scroll', function() {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const progress = (scrollTop / scrollHeight) * 100;
-            readingProgressBar.style.width = progress + '%';
-            readingProgress.setAttribute('aria-valuenow', progress);
-        });
-    }
 
     // --- Открытие/закрытие мобильного меню (сайдбара) ---
     const menuToggle = document.querySelector('.menu-toggle');
-    const nav = document.querySelector('.header .nav'); // Уточненный селектор
+    const nav = document.querySelector('.header .nav');
     if (menuToggle && nav) {
         menuToggle.addEventListener('click', () => {
-            // Переключаем классы для анимации меню и кнопки
             nav.classList.toggle('open');
             menuToggle.classList.toggle('active');
-            
-            // Этот класс блокирует прокрутку страницы, когда меню открыто
             document.body.classList.toggle('nav-open');
-            
-            // Обновляем ARIA атрибут для доступности
-            const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
-            menuToggle.setAttribute('aria-expanded', !isExpanded);
+            menuToggle.setAttribute('aria-expanded', nav.classList.contains('open'));
+        });
+    }
+
+    // --- Аккордеон для "Оборудования" в мобильном меню ---
+    const mobileDropdown = document.querySelector('[data-mobile-dropdown]');
+    if (mobileDropdown) {
+        const toggleLink = mobileDropdown.querySelector('.dropdown-toggle');
+        const dropdownMenu = mobileDropdown.querySelector('.dropdown-menu');
+        console.log('Mobile dropdown found:', mobileDropdown);
+        console.log('Toggle link found:', toggleLink);
+        console.log('Dropdown menu found:', dropdownMenu);
+        console.log('Dropdown menu children:', dropdownMenu?.children);
+        
+        toggleLink.addEventListener('click', function(e) {
+            if (window.innerWidth <= 992) {
+                e.preventDefault();
+                mobileDropdown.classList.toggle('active');
+                console.log('Dropdown toggled, active:', mobileDropdown.classList.contains('active'));
+                console.log('Dropdown menu max-height:', dropdownMenu?.style.maxHeight);
+            }
         });
     }
 
@@ -74,12 +67,8 @@ document.addEventListener('DOMContentLoaded', function () {
             const tabId = link.getAttribute('data-tab');
             tabLinks.forEach(l => l.classList.remove('active'));
             link.classList.add('active');
-            tabPanes.forEach(pane => {
-                pane.classList.remove('active');
-                if (pane.id === tabId) {
-                    pane.classList.add('active');
-                }
-            });
+            tabPanes.forEach(pane => pane.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
         });
     });
 
@@ -89,11 +78,8 @@ document.addEventListener('DOMContentLoaded', function () {
             e.preventDefault();
             const tabId = link.getAttribute('data-tab-link');
             const tabButton = document.querySelector(`.tab-link[data-tab="${tabId}"]`);
-            if (tabButton) {
-                tabButton.click(); // Имитируем клик по вкладке
-            }
+            if (tabButton) tabButton.click();
             
-            // Если мобильное меню было открыто, закрываем его
             if (nav && nav.classList.contains('open')) {
                 nav.classList.remove('open');
                 menuToggle.classList.remove('active');
@@ -101,12 +87,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 menuToggle.setAttribute('aria-expanded', 'false');
             }
 
-            // Плавная прокрутка к секции
             const targetElement = document.querySelector(link.getAttribute('href'));
             if (targetElement) {
-                const headerOffset = header.offsetHeight;
                 window.scrollTo({
-                    top: targetElement.offsetTop - headerOffset,
+                    top: targetElement.offsetTop - (header?.offsetHeight || 70),
                     behavior: 'smooth'
                 });
             }
@@ -117,159 +101,109 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.product-summary').forEach(summary => {
         summary.addEventListener('click', () => {
             const card = summary.closest('.product-card');
-            const details = card.querySelector('.product-details');
-            if (!card || !details) return;
-
-            const isExpanded = card.classList.contains('expanded');
+            if (!card) return;
             
-            // Закрываем все другие открытые карточки в этой же сетке
-            const parentGrid = card.closest('.equipment-grid');
-            if (parentGrid) {
-                parentGrid.querySelectorAll('.product-card.expanded').forEach(openCard => {
-                    if (openCard !== card) {
-                        openCard.classList.remove('expanded');
-                        const openDetails = openCard.querySelector('.product-details');
-                        if (openDetails) openDetails.style.maxHeight = null;
-                    }
-                });
-            }
+            // Закрываем другие открытые карточки
+            document.querySelectorAll('.product-card.expanded').forEach(openCard => {
+                if (openCard !== card) openCard.classList.remove('expanded');
+            });
             
-            // Открываем или закрываем текущую карточку
             card.classList.toggle('expanded');
-            if (card.classList.contains('expanded')) {
-                // Устанавливаем высоту для плавной анимации
-                details.style.maxHeight = details.scrollHeight + "px";
-            } else {
-                details.style.maxHeight = null;
-            }
+        });
+    });
+
+    // --- About Аккордеон ---
+    document.querySelectorAll('.about-accordion-question').forEach(question => {
+        question.addEventListener('click', () => {
+            const accordionItem = question.closest('.about-accordion-item');
+            const isActive = accordionItem.classList.contains('active');
+            
+            // Закрываем все другие открытые элементы
+            document.querySelectorAll('.about-accordion-item.active').forEach(activeItem => {
+                if (activeItem !== accordionItem) {
+                    activeItem.classList.remove('active');
+                    const activeQuestion = activeItem.querySelector('.about-accordion-question');
+                    activeQuestion.setAttribute('aria-expanded', 'false');
+                }
+            });
+            
+            // Переключаем текущий элемент
+            accordionItem.classList.toggle('active');
+            question.setAttribute('aria-expanded', !isActive);
         });
     });
 
     // --- Переключение изображений в галерее карточки ---
     document.querySelectorAll('.thumbnail-grid img').forEach(thumb => {
-        thumb.addEventListener('click', function(event) {
-            event.stopPropagation(); // Предотвращаем закрытие карточки
+        thumb.addEventListener('click', function(e) {
+            e.stopPropagation();
             
-            const mainImage = this.closest('.equipment-gallery').querySelector('.main-image');
-            if (mainImage) {
-                mainImage.src = this.src;
-            }
+            // Убираем активный класс у всех миниатюр
+            this.closest('.thumbnail-grid').querySelectorAll('img').forEach(t => {
+                t.classList.remove('active-thumb');
+            });
             
-            const galleryThumbs = this.closest('.thumbnail-grid').querySelectorAll('img');
-            galleryThumbs.forEach(t => t.classList.remove('active-thumb'));
+            // Добавляем активный класс к кликнутой миниатюре
             this.classList.add('active-thumb');
+            
+            // Обновляем главное изображение
+            const mainImage = this.closest('.equipment-gallery').querySelector('.main-image');
+            if (mainImage) mainImage.src = this.src;
         });
     });
 
     // --- Логика для модальных окон ---
     const projectModal = document.getElementById('project-modal');
     const comingSoonModal = document.getElementById('coming-soon-modal');
-
-    // Данные для модальных окон
     const projectData = {
         circus: {
             title: "Удивительный Цифровой Цирк",
-            description: "«Удивительный цифровой цирк» — это мультсериал в жанре психологической тёмной ко-медии о персонажах, запертых в виртуальной реальности. Главная героиня, Помни, ищет выход вместе с другими узниками, сталкиваясь с эксцентричным искусственным интеллектом, который управляет их миром.",
+            description: "Психологическая тёмная комедия о персонажах, запертых в виртуальной реальности.",
             poster: "assets/images/russian-works/Cuirk.png",
-            trailerUrl: "https://www.youtube.com/embed/j8GWluNJ_78",
-            episodes: [
-                { title: "Пилот", url: "https://www.youtube.com/embed/yXectSBcUKE" },
-                { title: "Серия 2 (скоро)", url: "" }
-            ]
-            // Остальные данные (рейтинги, актеры и т.д.) можно добавить по аналогии
+            dubTeam: ["Liska (Помни)", "Gashun (Кейн)", "JolyGolf (Джекс)", "Berserk (Рагата)"],
+            episodes: [{ title: "Пилот", url: "https://www.youtube.com/embed/yXectSBcUKE" }]
         }
     };
 
-    function openProjectModal(project) {
-        if (!project || !projectModal) return;
-        
-        projectModal.querySelector('#project-modal-title').textContent = project.title;
-        projectModal.querySelector('#project-modal-poster-img').src = project.poster;
-        projectModal.querySelector('#project-modal-description').textContent = project.description;
-
-        const episodeSelector = projectModal.querySelector('#episode-selector');
-        const projectModalIframe = projectModal.querySelector('#project-modal-iframe');
-        episodeSelector.innerHTML = '';
-        project.episodes.forEach((ep, index) => {
-            const btn = document.createElement('button');
-            btn.className = 'button small-button episode-btn';
-            btn.innerHTML = `<i class="fas fa-play"></i> ${ep.title}`;
-            if (index === 0) btn.classList.add('active');
-            btn.disabled = !ep.url;
-            btn.addEventListener('click', () => {
-                if(projectModalIframe) projectModalIframe.src = ep.url;
-                episodeSelector.querySelectorAll('.episode-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-            });
-            episodeSelector.appendChild(btn);
-        });
-
-        const trailerBtn = projectModal.querySelector('#project-modal-trailer-btn');
-        if(trailerBtn) {
-            trailerBtn.onclick = () => {
-                if(projectModalIframe) projectModalIframe.src = project.trailerUrl;
-                episodeSelector.querySelectorAll('.episode-btn').forEach(b => b.classList.remove('active'));
-            };
+    function openModal(modal) {
+        if (modal) {
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
         }
-        
-        if(projectModalIframe) projectModalIframe.src = project.episodes[0]?.url || project.trailerUrl;
-        projectModal.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
     }
 
-    function closeProjectModal() {
-        if (!projectModal) return;
-        const projectModalIframe = projectModal.querySelector('#project-modal-iframe');
-        projectModal.style.display = 'none';
-        if(projectModalIframe) projectModalIframe.src = ''; 
-        document.body.style.overflow = 'auto';
-    }
-
-    function openComingSoonModal() {
-        if(comingSoonModal) comingSoonModal.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closeComingSoonModal() {
-        if(comingSoonModal) comingSoonModal.style.display = 'none';
-        document.body.style.overflow = 'auto';
+    function closeModal(modal) {
+        if (modal) {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            const iframe = modal.querySelector('iframe');
+            if (iframe) iframe.src = '';
+        }
     }
 
     document.querySelectorAll('.portfolio-banner').forEach(banner => {
         banner.addEventListener('click', () => {
             const projectKey = banner.dataset.project;
             if (projectKey === 'coming-soon') {
-                openComingSoonModal();
-            } else {
+                openModal(comingSoonModal);
+            } else if (projectData[projectKey]) {
                 const data = projectData[projectKey];
-                openProjectModal(data);
+                projectModal.querySelector('#project-modal-title').textContent = data.title;
+                projectModal.querySelector('#project-modal-poster-img').src = data.poster;
+                projectModal.querySelector('#project-modal-description').textContent = data.description;
+                projectModal.querySelector('#project-modal-dub-team').innerHTML = data.dubTeam.map(item => `<li>${item}</li>`).join('');
+                projectModal.querySelector('#project-modal-iframe').src = data.episodes[0].url;
+                openModal(projectModal);
             }
         });
     });
 
-    // Закрытие модальных окон
-    const modals = document.querySelectorAll('.modal-overlay');
-    modals.forEach(modal => {
-        const closeButton = modal.querySelector('.modal-close-button');
-        if (closeButton) {
-            closeButton.addEventListener('click', () => {
-                if (modal.id === 'project-modal') closeProjectModal();
-                if (modal.id === 'coming-soon-modal') closeComingSoonModal();
-            });
-        }
+    document.querySelectorAll('.modal-overlay').forEach(modal => {
         modal.addEventListener('click', e => {
-            if (e.target === modal) {
-                if (modal.id === 'project-modal') closeProjectModal();
-                if (modal.id === 'coming-soon-modal') closeComingSoonModal();
+            if (e.target === modal || e.target.closest('.modal-close-button')) {
+                closeModal(modal);
             }
         });
-    });
-
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            closeProjectModal();
-            closeComingSoonModal();
-        }
     });
 
     // --- Инициализация Swiper Slider ---
@@ -280,68 +214,90 @@ document.addEventListener('DOMContentLoaded', function () {
             centeredSlides: true,
             slidesPerView: 1,
             spaceBetween: 20,
-            pagination: {
-                el: '.swiper-pagination',
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+            pagination: { 
+                el: '.swiper-pagination', 
                 clickable: true,
+                dynamicBullets: true
             },
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
+            navigation: { 
+                nextEl: '.swiper-button-next', 
+                prevEl: '.swiper-button-prev' 
             },
-            breakpoints: {
-                768: { slidesPerView: 2, spaceBetween: 40, },
-                1200: { slidesPerView: 3, spaceBetween: 60, }
-            }
+            breakpoints: { 
+                768: { 
+                    slidesPerView: 2,
+                    spaceBetween: 30
+                }, 
+                1200: { 
+                    slidesPerView: 3,
+                    spaceBetween: 40
+                } 
+            },
+            effect: 'slide',
+            speed: 600,
+            watchOverflow: true,
+            watchSlidesProgress: true,
+            watchSlidesVisibility: true
         });
     }
 
-    // --- Логика для выпадающего меню в хедере ---
-    document.addEventListener('click', (e) => {
-        const isDropdownButton = e.target.matches("[data-dropdown-button]");
-        if (!isDropdownButton && e.target.closest('[data-dropdown]') != null) return;
-
-        let currentDropdown;
-        if (isDropdownButton) {
-            currentDropdown = e.target.closest('[data-dropdown]');
-            currentDropdown.classList.toggle('active');
-        }
-
-        document.querySelectorAll("[data-dropdown].active").forEach(dropdown => {
-            if (dropdown === currentDropdown) return;
-            dropdown.classList.remove('active');
-        });
-    });
-    
-    // --- Логика для формы контактов ---
+    // --- Обработка формы контактов ---
     const contactForm = document.querySelector('.contact-form');
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            // Здесь должна быть логика отправки данных, например, через Fetch API.
-            // Ниже - имитация успешной отправки.
             const formMessage = document.querySelector('.form-submission-message');
-            const submitButton = contactForm.querySelector('button[type="submit"]');
-            
-            if (!formMessage || !submitButton) return;
-            
             const successMessage = formMessage.querySelector('.success-message');
             const errorMessage = formMessage.querySelector('.error-message');
+            const submitButton = contactForm.querySelector('button[type="submit"]');
             
             submitButton.disabled = true;
             submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Отправка...';
 
-            // Имитация ответа от сервера
             setTimeout(() => {
                 formMessage.style.display = 'block';
                 successMessage.style.display = 'block';
                 errorMessage.style.display = 'none';
-
                 submitButton.disabled = false;
                 submitButton.innerHTML = 'Отправить сообщение';
                 contactForm.reset();
-
                 setTimeout(() => { formMessage.style.display = 'none'; }, 5000);
             }, 1500);
         });
     }
+});
+
+function closeAllProductCards(except) {
+  document.querySelectorAll('.product-card.open').forEach(card => {
+    if (card !== except) card.classList.remove('open');
+  });
+}
+
+function deselectAllProductCards(except) {
+  document.querySelectorAll('.product-card.selected').forEach(card => {
+    if (card !== except) card.classList.remove('selected');
+  });
+}
+
+function setupProductCards() {
+  document.querySelectorAll('.product-card').forEach(card => {
+    card.addEventListener('click', (e) => {
+      // Не даём всплывать, если клик по thumbnail
+      if (e.target.closest('.thumbnail-grid')) return;
+      const isOpen = card.classList.contains('open');
+      closeAllProductCards();
+      deselectAllProductCards();
+      if (!isOpen) {
+        card.classList.add('open', 'selected');
+      }
+    });
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  setupProductCards();
 });

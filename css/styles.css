@@ -36,7 +36,7 @@
 
 html {
     scroll-behavior: smooth;
-    overflow-x: hidden; /* Prevent horizontal scroll */
+    overflow-x: hidden;
 }
 
 body {
@@ -46,7 +46,7 @@ body {
     background: var(--white);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    overflow-x: hidden; /* Prevent horizontal scroll */
+    overflow-x: hidden;
 }
 
 .container {
@@ -266,20 +266,20 @@ a:hover {
     background-color: var(--black);
     list-style: none;
     padding: 10px 0;
-    margin-top: 20px;
+    margin-top: 0;
     width: 240px;
     border-radius: 8px;
     box-shadow: 0 8px 25px rgba(0,0,0,0.5);
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s ease, margin-top 0.3s ease, visibility 0.3s;
+    transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     z-index: 1001;
 }
 .nav .dropdown:hover > .dropdown-menu {
     display: block;
     opacity: 1;
     visibility: visible;
-    margin-top: 15px;
+    transform: translateX(-50%) translateY(5px);
 }
 .nav .dropdown-menu li {
     margin: 0;
@@ -547,12 +547,14 @@ a:hover {
     margin-top: var(--space-md);
 }
 .tab-nav {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
     gap: 10px;
     border-bottom: 2px solid var(--light-border);
     margin-bottom: var(--space-md);
     padding-bottom: 10px;
+    overflow-x: auto;
 }
 .tab-link {
     font-family: var(--font-heading);
@@ -639,7 +641,7 @@ a:hover {
     border: 2px solid transparent;
     transition: all 0.3s ease;
     opacity: 0.7;
-    background-color: #f5f5f5;
+    background-color: #f0f0f0;
 }
 .equipment-gallery .thumbnail-grid img.active-thumb,
 .equipment-gallery .thumbnail-grid img:hover {
@@ -697,6 +699,7 @@ a:hover {
 .equipment-specs ul li strong {
     color: var(--dark-text);
     margin-right: 15px;
+    min-width: 100px;
 }
 .equipment-specs ul li span {
     color: var(--mid-text);
@@ -793,17 +796,11 @@ a:hover {
         grid-column: 1 / -1;
     }
 }
-.product-card.expanded .product-summary {
-    background-color: #f5f5f5;
-}
-
-/* CORRECTION: Added max-height for the expanded card animation to work on desktop */
 .product-card.expanded .product-details {
     padding: var(--space-md);
     border-top: 1px solid var(--light-border);
-    max-height: 1200px; /* Set a large enough value */
+    max-height: 1200px;
 }
-
 .product-details .equipment-card {
     display: grid;
     grid-template-columns: 1fr;
@@ -832,6 +829,17 @@ a:hover {
     .portfolio-grid {
         grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     }
+}
+.tab-content .portfolio-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-md);
+    padding-top: var(--space-md);
+}
+.tab-content .portfolio-item {
+    max-width: 500px;
+    width: 100%;
 }
 .portfolio-item {
     background: var(--white);
@@ -1196,7 +1204,7 @@ a:hover {
         width: 100%;
         text-align: center;
         padding-top: 10px;
-        margin-top: 10px;
+        margin-top: 0;
         transform: none;
         opacity: 1;
         visibility: visible;
@@ -1238,14 +1246,16 @@ a:hover {
     p { font-size: 1em; }
     .section-description { font-size: 1.1em; }
     .button { padding: 14px 30px; font-size: 1em; }
-    .header .logo a { font-size: 2em; }
-    .hero-section { padding: 150px 0 100px; min-height: 70vh; }
-    .services-grid, .features-grid, .portfolio-grid { grid-template-columns: 1fr; }
-    .process-slider .swiper-slide { width: 90%; }
-    .equipment-specs h4 { font-size: 2em; }
-    .contact-form-wrapper { padding: 30px; }
-    #project-modal .modal-content { max-height: 100vh; max-width: 100vw; border-radius: 0; }
-    .project-modal-player { padding: var(--space-sm); }
+    .header .logo a { font-size: 1.8em; }
+    .contact-form-wrapper h3 { font-size: 1.8em; }
+    .section-description { font-size: 1em; }
+    .product-summary { flex-direction: column; text-align: center; }
+    .product-summary-info { justify-content: center; }
+    .summary-arrow { display: none; }
+    .equipment-specs ul li { flex-direction: column; text-align: center; gap: 5px; }
+    .equipment-specs ul li strong { margin-right: 0; }
+    .equipment-specs ul li span { text-align: center; }
+    .tab-nav { flex-wrap: wrap; }
 }
 
 @media (max-width: 480px) {
@@ -1261,4 +1271,78 @@ a:hover {
     .equipment-specs ul li { flex-direction: column; text-align: center; gap: 5px; }
     .equipment-specs ul li strong { margin-right: 0; }
     .equipment-specs ul li span { text-align: center; }
+}
+@media (max-width: 768px) {
+  .equipment-card {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .equipment-gallery {
+    width: 100%;
+  }
+
+  .equipment-gallery .main-image {
+    width: 100%;
+    height: auto;
+    max-height: 250px;
+    object-fit: contain;
+  }
+
+  .equipment-gallery .thumbnail-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .equipment-gallery .thumbnail-grid img {
+    height: 60px;
+    object-fit: contain;
+  }
+
+  .equipment-specs {
+    padding: 0;
+  }
+
+  .equipment-specs h4 {
+    font-size: 1.6em;
+    text-align: center;
+  }
+
+  .equipment-specs p {
+    font-size: 1em;
+    text-align: center;
+  }
+
+  .equipment-specs ul li {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    font-size: 0.95em;
+  }
+
+  .equipment-specs .card-buttons {
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .product-summary {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 16px;
+  }
+
+  .product-summary-img {
+    width: 100%;
+    max-height: 120px;
+    object-fit: contain;
+  }
+
+  .product-summary-info {
+    text-align: center;
+  }
+
+  .summary-arrow {
+    display: none;
+  }
 }
