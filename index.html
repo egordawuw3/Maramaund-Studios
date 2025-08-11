@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru" data-theme="light">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,65 +7,17 @@
     <meta name="description" content="MaraMaund Studions - ваш надежный партнер в мире профессионального дубляжа фильмов и сериалов. Качественное озвучивание, липсинк, перевод и адаптация для российского зрителя.">
     <meta name="keywords" content="MaraMaund Studions, студия дубляжа, дубляж фильмов, озвучивание фильмов, липсинк, перевод фильмов, студия озвучки, профессиональный дубляж, озвучка сериалов, русская озвучка, студия звукозаписи, постпродакшн, оборудование для дубляжа">
 
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://maramaundstudios.ru/">
-    <meta property="og:title" content="MaraMaund Studions - Студия озвучивания мультсериалов">
-    <meta property="og:description" content="Студия озвучивания мультфильмов и мультсериалов с безупречным качеством звука и точной синхронизацией.">
-    <meta property="og:image" content="https://maramaundstudios.ru/og-image.jpg">
-
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://maramaundstudios.ru/">
-    <meta property="twitter:title" content="MaraMaund Studions - Профессиональный Дубляж">
-    <meta property="twitter:description" content="Студия озвучивания фильмов и мультсериалов с безупречным качеством звука и точной синхронизацией.">
-    <meta property="twitter:image" content="https://maramaundstudios.ru/twitter-image.jpg">
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    <link rel="preconnect" href="https://unpkg.com">
-
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap"></noscript>
 
     <link rel="icon" href="favicon.png" type="image/png">
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    <link rel="manifest" href="site.webmanifest">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     <link rel="stylesheet" href="css/styles.css">
-
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "MaraMaund Studions",
-        "url": "https://maramaundstudios.ru",
-        "logo": "https://maramaundstudios.ru/logo.png",
-        "description": "Профессиональная студия дубляжа фильмов и сериалов",
-        "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "ул. Примерная, д. 10, офис 20",
-            "addressLocality": "Москва",
-            "postalCode": "123456",
-            "addressCountry": "RU"
-        },
-        "contactPoint": {
-            "@type": "ContactPoint",
-            "telephone": "+7-123-456-78-90",
-            "contactType": "customer service",
-            "email": "info@maramaundstudios.ru"
-        }
-    }
-    </script>
-
-    <link rel="preload" href="fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="fonts/oswald-var.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="hero-bg.jpg" as="image">
-    
-    <meta name="theme-color" content="#C00000" media="(prefers-color-scheme: light)">
-    <meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)">
 </head>
 <body>
     <a href="#main-content" class="skip-link">Перейти к основному содержимому</a>
@@ -75,12 +27,15 @@
             <div class="logo">
                 <a href="#hero" aria-label="MaraMaund Studions - Главная">MaraMaund Studions</a>
             </div>
-            <nav class="nav" role="navigation" aria-label="Основное меню">
+            <nav class="nav" role="navigation" aria-label="Основное меню" id="nav-menu">
+                <button class="close-nav-btn" aria-label="Закрыть меню" id="close-nav-btn">
+                    <i class="fas fa-times"></i>
+                </button>
                 <ul>
                     <li><a href="#about">О нас</a></li>
                     <li><a href="#services">Услуги</a></li>
                     <li class="dropdown" data-mobile-dropdown>
-                        <a href="#equipment" class="dropdown-toggle" id="equipmentDropdown" aria-haspopup="true" aria-expanded="false">Оборудование <i class="fas fa-chevron-down" aria-hidden="true"></i></a>
+                        <a href="#equipment" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">Оборудование <i class="fas fa-chevron-down" aria-hidden="true"></i></a>
                         <ul class="dropdown-menu">
                             <li><a href="#equipment" data-tab-link="tab-audio">Аудиоинтерфейсы</a></li>
                             <li><a href="#equipment" data-tab-link="tab-mics">Микрофоны</a></li>
@@ -94,17 +49,13 @@
                     <li><a href="#contact">Контакты</a></li>
                 </ul>
             </nav>
-            <button class="menu-toggle" aria-label="Открыть меню" aria-expanded="false" aria-controls="nav">
+            <button class="menu-toggle" aria-label="Открыть меню" aria-expanded="false" aria-controls="nav-menu" id="menu-toggle">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
         </div>
     </header>
-
-    <div class="reading-progress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-        <div class="reading-progress-bar"></div>
-    </div>
 
     <main id="main-content" role="main">
         <section id="hero" class="hero-section" aria-label="Главный баннер">
@@ -290,8 +241,14 @@
                                                 <p>Компактный и мощный аудиоинтерфейс, обеспечивающий студийное качество звука.</p>
                                                 <ul>
                                                     <li><strong>Разрядность:</strong> <span>24 бит</span></li>
-                                                    <li><strong>Частота:</strong> <span>192 кГц</span></li>
-                                                    <li><strong>Входы:</strong> <span>1x Combo (XLR/Jack)</span></li>
+                                                    <li><strong>Частота дискретизации:</strong> <span>192 кГц</span></li>
+                                                    <li><strong>Тип подключения:</strong> <span>USB</span></li>
+                                                    <li><strong>Поддержка ADAT:</strong> <span>нет</span></li>
+                                                    <li><strong>Количество разъемов USB:</strong> <span>2</span></li>
+                                                    <li><strong>Фантомное питание:</strong> <span>есть</span></li>
+                                                    <li><strong>Вход Jack (6.3):</strong> <span>1</span></li>
+                                                    <li><strong>Количество аналоговых входов XLR:</strong><span>1</span></li>
+                                                    <li><strong>Выход Jack (6.3):</strong> <span>3</span></li>
                                                 </ul>
                                                 <a href="https://www.pult.ru/product/audiointerfeys-arturia-minifuse-1-black" class="button primary small-button" target="_blank" rel="noopener noreferrer">Купить</a>
                                                 <a href="https://www.youtube.com/watch?v=8bLACTH20RE" class="button secondary small-button" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i>Обзор</a>
@@ -326,10 +283,17 @@
                                                 <p>Компактный аудиоинтерфейс с консольным предусилителем Audient.</p>
                                                 <ul>
                                                     <li><strong>Разрядность:</strong> <span>24 бит</span></li>
-                                                    <li><strong>Частота:</strong> <span>96 кГц</span></li>
-                                                    <li><strong>Входы:</strong> <span>1x Combo, 1x JFET</span></li>
+                                                    <li><strong>Разрядность:</strong> <span>24 бит</span></li>
+                                                    <li><strong>Частота дискретизации:</strong> <span>96 кГц</span></li>
+                                                    <li><strong>Тип подключения:</strong> <span>USB</span></li>
+                                                    <li><strong>Интерфейс:</strong> <span>USB-C</span></li>
+                                                    <li><strong>Поддержка ADAT:</strong> <span>Есть</span></li>
+                                                    <li><strong>Фантомное питание:</strong> <span>Есть</span></li>
+                                                    <li><strong>Входы:</strong> <span>1x XLR, 2x Jack (6.3)</span></li>
+                                                    <li><strong>Выходы:</strong> <span>1x Mini-jack (3.5 мм), 2x Jack (6.3)</span></li>
                                                 </ul>
-                                                <a href="#" class="button primary small-button" target="_blank" rel="noopener noreferrer">Купить</a>
+                                                <a href="https://www.pult.ru/product/audiointerfeys-audient-id4-mkii" class="button primary small-button" target="_blank" rel="noopener noreferrer">Купить</a>
+                                                <a href="https://www.youtube.com/watch?v=wcB0cweq2q0" class="button secondary small-button" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i>Обзор</a>
                                             </div>
                                         </div>
                                     </div>
@@ -694,6 +658,11 @@
                                         <iframe src="https://www.youtube.com/embed/HbFr4-0FOO0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
                                     </div>
                                 </div>
+                                    <div class="info-video-wrapper">
+                                    <div class="video-wrapper">
+                                        <iframe src="https://www.youtube.com/embed/6AI_IFjgGZo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+                                    </div>
+                                </div>
                             </div>
                              <div class="equipment-grid">
                                 <div class="product-card" data-aos="fade-up">
@@ -726,7 +695,7 @@
                                                     <li><strong>Длина:</strong> <span>3 м</span></li>
                                                 </ul>
                                                 <div class="card-buttons">
-                                                    <a href="https://pop-music.ru/products/mikrofonnyy-kabel-klotz-grg1fm03-0-888880026214/" class="button primary small-button" target="_blank" rel="noopener noreferrer">Купить</a>
+                                                    <a href="https://www.pult.ru/product/mikrofonnyy-kabel-klotz-grg1fm03-0-greyhound" class="button primary small-button" target="_blank" rel="noopener noreferrer">Купить</a>
                                             </div>
                                         </div>
                                     </div>
@@ -763,7 +732,7 @@
                                                     <li><strong>Длина:</strong> <span>1 м</span></li>
                                                 </ul>
                                                 <div class="card-buttons">
-                                                   <a href="https://pop-music.ru/products/instrumentalnyy-kabel-bespeco-tt100fm-888880028243/" class="button primary small-button" target="_blank" rel="noopener noreferrer">Купить</a>
+                                                   <a href="https://www.pult.ru/product/kabel-mikrofonnyy-bespeco-tt100fm-xlr-xlr-1-m" class="button primary small-button" target="_blank" rel="noopener noreferrer">Купить</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -795,7 +764,7 @@
                                                     <li><strong>Длина:</strong> <span>3 м (10 футов)</span></li>
                                                 </ul>
                                                 <div class="card-buttons">
-                                                    <a href="https://pop-music.ru/products/mikrofonnyy-kabel-planet-waves-pw-cmic-10-888880011833/" class="button primary small-button" target="_blank" rel="noopener noreferrer">Купить</a>
+                                                    <a href="https://www.pult.ru/product/mikrofonnyy-kabel-planetwaves-pw-cmic10" class="button primary small-button" target="_blank" rel="noopener noreferrer">Купить</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -1025,28 +994,31 @@
         </div>
     </footer>
 
-    <div id="project-modal" class="modal-overlay" style="display: none;">
+    <div id="project-modal" class="modal-overlay" style="display: none;" role="dialog" aria-labelledby="project-modal-title" aria-modal="true">
         <div class="modal-content project-modal-content">
-            <button id="project-modal-close" class="modal-close-button" aria-label="Закрыть окно"><i class="fas fa-times"></i></button>
+            <button class="modal-close-button" aria-label="Закрыть окно"><i class="fas fa-times"></i></button>
             <div class="project-modal-header">
                 <div class="project-modal-poster">
-                    <img src="assets/images/russian-works/Cuirk.png" alt="Постер проекта" id="project-modal-poster-img">
+                    <img src="" alt="Постер проекта" id="project-modal-poster-img">
                 </div>
                 <div class="project-modal-details">
                     <h2 id="project-modal-title"></h2>
                     <div id="project-modal-ratings" class="project-modal-ratings"></div>
                     <p id="project-modal-description"></p>
                     
-                    <div id="project-modal-meta" class="project-modal-meta"></div>
+                    <div class="project-modal-meta">
+                        <h3>Детали</h3>
+                        <ul id="project-modal-meta-list"></ul>
+                    </div>
 
-                    <h3>В главных ролях:</h3>
-                    <ul id="project-modal-cast" class="project-modal-cast-list">
-                        </ul>
-                     <h3>Команда дубляжа:</h3>
-                    <ul id="project-modal-dub-team" class="project-modal-cast-list">
-                        </ul>
+                    <h3>В ролях:</h3>
+                    <ul id="project-modal-cast" class="project-modal-cast-list"></ul>
+                    
+                    <h3>Команда дубляжа:</h3>
+                    <ul id="project-modal-dub-team" class="project-modal-cast-list"></ul>
+                    
                     <div class="modal-actions">
-                        <button id="project-modal-trailer-btn" class="button secondary"><i class="fab fa-youtube"></i> Смотреть трейлер</button>
+                        <a href="#" id="project-modal-trailer-btn" class="button secondary" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i> Смотреть трейлер</a>
                     </div>
                 </div>
             </div>
@@ -1056,16 +1028,17 @@
                 </div>
                 <div class="project-modal-episodes">
                     <h3>Серии:</h3>
-                    <div id="episode-selector" class="episode-selector">
-                        </div>
+                    <div id="episode-selector" class="episode-selector"></div>
                 </div>
             </div>
         </div>
     </div>
+
     
+    <!-- МОДАЛЬНОЕ ОКНО "СКОРО" -->
     <div id="coming-soon-modal" class="modal-overlay" style="display: none;">
         <div class="modal-content coming-soon-content">
-            <button id="coming-soon-modal-close" class="modal-close-button" aria-label="Закрыть окно"><i class="fas fa-times"></i></button>
+            <button class="modal-close-button" aria-label="Закрыть окно"><i class="fas fa-times"></i></button>
             <h2>Новый проект в работе</h2>
             <p>Скоро появится!</p>
             <i class="fas fa-hourglass-half"></i>

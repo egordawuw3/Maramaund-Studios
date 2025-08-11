@@ -1,4 +1,4 @@
-/* Custom CSS for MaraMaund Studios - Final Premium Design (Corrected) */
+/* Custom CSS for MaraMaund Studios - Final Premium Design (Corrected & Improved) */
 
 /* --- Variables (Centralized color and spacing management) --- */
 :root {
@@ -47,6 +47,11 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
+}
+
+/* СТИЛЬ ДЛЯ ТЕЛА ПРИ ОТКРЫТОМ МЕНЮ */
+body.nav-open {
+    overflow: hidden;
 }
 
 .container {
@@ -330,6 +335,11 @@ a:hover {
 }
 .menu-toggle.active span:nth-child(3) {
     transform: translateY(-9.5px) rotate(-45deg);
+}
+
+/* Кнопка закрытия сайдбара, скрыта по умолчанию */
+.close-nav-btn {
+    display: none;
 }
 
 .hero-section {
@@ -802,10 +812,6 @@ a:hover {
     max-height: 1200px;
 }
 
-/* ИСПРАВЛЕНО: Эти стили теперь находятся в медиа-запросе для мобильных ниже, где им и место */
-/* .product-details .equipment-card { ... } */
-
-
 @media (min-width: 768px) {
     .product-details .equipment-card,
     .product-details .equipment-card-details {
@@ -1157,99 +1163,150 @@ a:hover {
     .container { padding: 0 var(--space-md); }
 }
 
+/* --- НАЧАЛО: СТИЛИ ДЛЯ МОБИЛЬНОЙ НАВИГАЦИИ (САЙДБАРА) --- */
 @media (max-width: 992px) {
     .menu-toggle {
         display: flex;
     }
 
+    /* Стили для самого сайдбара */
     .header .nav {
         position: fixed;
         top: 0;
         right: 0;
-        width: 80%;
-        max-width: 320px;
+        width: 100%;
+        max-width: 350px; /* Немного шире для комфорта */
         height: 100%;
-        background: var(--black);
+        background: var(--black); /* Темный фон в стиле сайта */
         z-index: 1001;
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: 60px 20px;
+        padding: 60px 20px 20px;
         visibility: hidden;
         transform: translateX(100%);
-        transition: transform 0.35s ease-in-out, visibility 0s 0.35s;
+        transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), visibility 0s 0.4s;
+        box-shadow: -5px 0 30px rgba(0,0,0,0.5);
     }
     .header .nav.open {
         visibility: visible;
         transform: translateX(0);
-        transition: transform 0.35s ease-in-out, visibility 0s 0s;
-        box-shadow: -5px 0 20px rgba(0,0,0,0.4);
+        transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), visibility 0s 0s;
     }
+    
+    /* Стили для кнопки закрытия */
+    .close-nav-btn {
+        display: flex;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: transparent;
+        border: none;
+        color: var(--white);
+        font-size: 1.8em;
+        cursor: pointer;
+        padding: 5px;
+        transition: color 0.3s ease, transform 0.3s ease;
+    }
+    .close-nav-btn:hover {
+        color: var(--primary-red);
+        transform: rotate(90deg);
+    }
+
+    /* Стили для списка меню */
     .header .nav ul {
         flex-direction: column;
-        align-items: center;
+        align-items: flex-start; /* Выравнивание по левому краю */
         width: 100%;
         padding: 0;
+        margin-top: 20px; /* Отступ от кнопки закрытия */
     }
+    
     .header .nav ul li {
-        margin: 20px 0;
         width: 100%;
-        text-align: center;
+        margin: 0;
+        text-align: left;
     }
+
     .header .nav ul li a {
-        font-size: 1.8em;
-    }
-    .header .nav .dropdown-menu {
-        /* ИСПРАВЛЕНО: Полностью сбрасываем стили позиционирования с десктопа */
-        position: static;
-        display: block; /* Важно, чтобы max-height работал */
-        visibility: visible;
-        opacity: 1;
-        background: transparent;
-        box-shadow: none;
+        color: var(--white);
+        font-size: 1.6em; /* Крупнее для удобства */
+        font-family: var(--font-heading);
+        text-transform: uppercase;
+        padding: 15px 10px;
         width: 100%;
-        text-align: center;
-        padding-top: 10px;
-        margin-top: 0;
-        transform: none; /* Отменяем transform с десктопа */
-        left: auto; /* Отменяем позиционирование */
-        
-        /* Стили для аккордеона */
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.4s ease-out;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    .header .nav ul li a:hover,
+    .header .nav ul li a:focus-visible {
+        background-color: rgba(255, 255, 255, 0.05);
+        color: var(--primary-red);
+    }
+    .header .nav ul li a:not(.dropdown-toggle)::after {
+        display: none;
     }
 
-    /* Показываем подменю, когда у родителя есть класс .active */
-    .header .nav .dropdown.active .dropdown-menu {
-        max-height: 300px; /* Достаточная высота, чтобы вместить все пункты */
-        margin-top: 10px;
+    /* Стили для выпадающего меню (аккордеон) */
+    .header .nav .dropdown-toggle {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        cursor: pointer;
     }
-    
-    .header .nav .dropdown-menu li a {
-        font-size: 0.7em;
-        padding: 8px 0;
-        justify-content: center;
-        color: #aaa;
-    }
-
-    .nav .dropdown:hover .dropdown-toggle i {
-        transform: none;
-    }
-    
-    /* Вращаем стрелку для наглядности */
     .header .nav .dropdown .dropdown-toggle i {
         transition: transform 0.3s ease;
+        font-size: 0.8em;
     }
-
     .header .nav .dropdown.active .dropdown-toggle i {
         transform: rotate(180deg);
+        color: var(--primary-red);
+    }
+
+    .header .nav .dropdown-menu {
+        position: static;
+        transform: none;
+        box-shadow: none;
+        opacity: 1;
+        visibility: visible;
+        display: block;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        background-color: rgba(0,0,0,0.2);
+        border-radius: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+    }
+    .header .nav .dropdown.active > .dropdown-menu {
+        max-height: 500px; /* Увеличим для запаса */
+        padding: 5px 0;
+    }
+
+    .header .nav .dropdown-menu li {
+        border-bottom: none;
+    }
+
+    .header .nav .dropdown-menu li a {
+        padding: 10px 10px 10px 30px; /* Отступ для вложенности */
+        font-size: 1.2em; /* Поменьше, чем родительский */
+        font-weight: 400;
+        color: #ccc;
+        border-bottom: none;
+    }
+    .header .nav .dropdown-menu li a:hover {
+        color: var(--white);
+        background-color: var(--primary-red);
+    }
+
+    /* Отключаем hover-эффект стрелки с десктопа */
+    .nav .dropdown:hover .dropdown-toggle i {
+        transform: none; 
     }
     
-    body.nav-open {
-        overflow: hidden;
-    }
+    /* Остальные адаптивные стили */
     .section-padding { padding: var(--padding-section-mobile) 0; }
     .hero-section { padding: 180px 0 150px; min-height: 80vh;}
     .hero-section h1 { font-size: 4em; }
@@ -1265,6 +1322,7 @@ a:hover {
     .project-modal-details h2 { font-size: 2.5em; text-align: center; }
     .project-modal-cast-list { column-count: 1; }
 }
+/* --- КОНЕЦ: СТИЛИ ДЛЯ МОБИЛЬНОЙ НАВИГАЦИИ (САЙДБАРА) --- */
 
 @media (max-width: 768px) {
     .container { padding: 0 var(--space-sm); }
@@ -1279,9 +1337,6 @@ a:hover {
     .section-description { font-size: 1em; }
     .tab-nav { flex-wrap: wrap; justify-content: center; }
 
-    /* --- НАЧАЛО ИСПРАВЛЕНИЙ ДЛЯ КАРТОЧЕК ОБОРУДОВАНИЯ --- */
-
-    /* ИСПРАВЛЕНО: Стили для раскрытой карточки */
     .product-details .equipment-card,
     .product-details .equipment-card-details {
         display: flex;
@@ -1294,22 +1349,21 @@ a:hover {
         background: transparent;
     }
 
-    /* Адаптация основной карточки оборудования */
     .equipment-card, .equipment-card-details {
-        flex-direction: column; /* Главное правило: ставим элементы вертикально */
+        flex-direction: column;
         gap: 20px;
-        align-items: center; /* Центрируем для аккуратности */
+        align-items: center;
     }
 
     .equipment-gallery {
         width: 100%;
-        max-width: 400px; /* Ограничим ширину галереи на мобильных */
+        max-width: 400px;
     }
 
     .equipment-gallery .main-image {
         width: 100%;
         height: auto;
-        max-height: 250px; /* Ограничиваем высоту главной картинки */
+        max-height: 250px;
         object-fit: contain;
     }
 
@@ -1325,8 +1379,8 @@ a:hover {
 
     .equipment-specs {
         padding: 0;
-        width: 100%; /* Занимает всю ширину */
-        text-align: center; /* Текст по центру */
+        width: 100%;
+        text-align: center;
     }
 
     .equipment-specs h4 {
@@ -1340,8 +1394,8 @@ a:hover {
     }
 
     .equipment-specs ul li {
-        flex-direction: column; /* Характеристики тоже вертикально */
-        align-items: center; /* И по центру */
+        flex-direction: column;
+        align-items: center;
         gap: 5px;
         text-align: center;
     }
@@ -1354,21 +1408,20 @@ a:hover {
     }
 
     .equipment-specs .card-buttons {
-        justify-content: center; /* Кнопки по центру */
+        justify-content: center;
         gap: 10px;
     }
 
-    /* Адаптация "шапки" карточки */
     .product-summary {
         flex-direction: column;
         text-align: center;
-        gap: 15px; /* Увеличим отступ */
+        gap: 15px;
         padding: 16px;
     }
     
     .product-summary-img {
         width: 100%;
-        max-width: 150px; /* Увеличим картинку в шапке */
+        max-width: 150px;
         height: auto;
         object-fit: contain;
     }
@@ -1378,9 +1431,8 @@ a:hover {
     }
 
     .summary-arrow {
-        display: none; /* Стрелка на мобильных не нужна */
+        display: none;
     }
-     /* --- КОНЕЦ ИСПРАВЛЕНИЙ ДЛЯ КАРТОЧЕК ОБОРУДОВАНИЯ --- */
 }
 
 @media (max-width: 480px) {

@@ -1,162 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-    // --- Инициализация библиотеки анимаций при скролле ---
-    AOS.init({
-        once: true,
-        duration: 800,
-        easing: 'ease-out-cubic'
-    });
-
-    // --- Эффект для хедера при прокрутке ---
-    const header = document.querySelector('.header');
-    if (header) {
-        window.addEventListener('scroll', () => {
-            header.classList.toggle('scrolled', window.scrollY > 50);
-        });
-    }
-
-    // --- Кнопка "Наверх" ---
-    const backToTopButton = document.getElementById('backToTop');
-    if (backToTopButton) {
-        window.addEventListener('scroll', () => {
-            backToTopButton.classList.toggle('show', window.pageYOffset > 300);
-        });
-        backToTopButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    }
-
-    // --- Открытие/закрытие мобильного меню (сайдбара) ---
-    const menuToggle = document.querySelector('.menu-toggle');
-    const nav = document.querySelector('.header .nav');
-    if (menuToggle && nav) {
-        menuToggle.addEventListener('click', () => {
-            nav.classList.toggle('open');
-            menuToggle.classList.toggle('active');
-            document.body.classList.toggle('nav-open');
-            menuToggle.setAttribute('aria-expanded', nav.classList.contains('open'));
-        });
-    }
-
-    // --- Аккордеон для "Оборудования" в мобильном меню ---
-    const mobileDropdown = document.querySelector('[data-mobile-dropdown]');
-    if (mobileDropdown) {
-        const toggleLink = mobileDropdown.querySelector('.dropdown-toggle');
-        const dropdownMenu = mobileDropdown.querySelector('.dropdown-menu');
-        console.log('Mobile dropdown found:', mobileDropdown);
-        console.log('Toggle link found:', toggleLink);
-        console.log('Dropdown menu found:', dropdownMenu);
-        console.log('Dropdown menu children:', dropdownMenu?.children);
-        
-        toggleLink.addEventListener('click', function(e) {
-            if (window.innerWidth <= 992) {
-                e.preventDefault();
-                mobileDropdown.classList.toggle('active');
-                console.log('Dropdown toggled, active:', mobileDropdown.classList.contains('active'));
-                console.log('Dropdown menu max-height:', dropdownMenu?.style.maxHeight);
-            }
-        });
-    }
-
-    // --- Переключение вкладок в секции "Оборудование" ---
-    const tabLinks = document.querySelectorAll('.tab-link');
-    const tabPanes = document.querySelectorAll('.tab-pane');
-    tabLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            const tabId = link.getAttribute('data-tab');
-            tabLinks.forEach(l => l.classList.remove('active'));
-            link.classList.add('active');
-            tabPanes.forEach(pane => pane.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-        });
-    });
-
-    // --- Навигация из выпадающего меню на нужную вкладку ---
-    document.querySelectorAll('.dropdown-menu a[data-tab-link]').forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const tabId = link.getAttribute('data-tab-link');
-            const tabButton = document.querySelector(`.tab-link[data-tab="${tabId}"]`);
-            if (tabButton) tabButton.click();
-            
-            if (nav && nav.classList.contains('open')) {
-                nav.classList.remove('open');
-                menuToggle.classList.remove('active');
-                document.body.classList.remove('nav-open');
-                menuToggle.setAttribute('aria-expanded', 'false');
-            }
-
-            const targetElement = document.querySelector(link.getAttribute('href'));
-            if (targetElement) {
-                window.scrollTo({
-                    top: targetElement.offsetTop - (header?.offsetHeight || 70),
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-
-    // --- Раскрывающиеся карточки оборудования (аккордеон) ---
-    document.querySelectorAll('.product-summary').forEach(summary => {
-        summary.addEventListener('click', () => {
-            const card = summary.closest('.product-card');
-            if (!card) return;
-            
-            // Закрываем другие открытые карточки
-            document.querySelectorAll('.product-card.expanded').forEach(openCard => {
-                if (openCard !== card) openCard.classList.remove('expanded');
-            });
-            
-            card.classList.toggle('expanded');
-        });
-    });
-
-    // --- About Аккордеон ---
-    document.querySelectorAll('.about-accordion-question').forEach(question => {
-        question.addEventListener('click', () => {
-            const accordionItem = question.closest('.about-accordion-item');
-            const isActive = accordionItem.classList.contains('active');
-            
-            // Закрываем все другие открытые элементы
-            document.querySelectorAll('.about-accordion-item.active').forEach(activeItem => {
-                if (activeItem !== accordionItem) {
-                    activeItem.classList.remove('active');
-                    const activeQuestion = activeItem.querySelector('.about-accordion-question');
-                    activeQuestion.setAttribute('aria-expanded', 'false');
-                }
-            });
-            
-            // Переключаем текущий элемент
-            accordionItem.classList.toggle('active');
-            question.setAttribute('aria-expanded', !isActive);
-        });
-    });
-
-    // --- Переключение изображений в галерее карточки ---
-    document.querySelectorAll('.thumbnail-grid img').forEach(thumb => {
-        thumb.addEventListener('click', function(e) {
-            e.stopPropagation();
-            
-            // Убираем активный класс у всех миниатюр
-            this.closest('.thumbnail-grid').querySelectorAll('img').forEach(t => {
-                t.classList.remove('active-thumb');
-            });
-            
-            // Добавляем активный класс к кликнутой миниатюре
-            this.classList.add('active-thumb');
-            
-            // Обновляем главное изображение
-            const mainImage = this.closest('.equipment-gallery').querySelector('.main-image');
-            if (mainImage) mainImage.src = this.src;
-        });
-    });
-
-    // --- Логика для модальных окон ---
-    const projectModal = document.getElementById('project-modal');
-    const comingSoonModal = document.getElementById('coming-soon-modal');
-
-
+    // --- ОБЪЕКТ С ДАННЫМИ ПРОЕКТОВ ---
     const projectData = {
         circus: {
             title: "Удивительный Цифровой Цирк",
@@ -170,8 +14,8 @@ document.addEventListener('DOMContentLoaded', function () {
             releaseDate: "13 октября 2023 года",
             country: "Австралия, США",
             director: "Gooseworx",
-            genres: ["Комедии", "Фэнтези", "Фантастика", "Приключения", "Триллеры", "Ужасы", "Детективы", "Мультсериалы", "Зарубежные"],
-            cast: ["Алекс Рошон", "Майкл Ковач", "Аманда Хаффорд", "Марисса Ленти", "Эшли Николс", "Gooseworx", "Лиззи Фриман", "Шон Чиплок", "Джек Хоукинс", "Morgane Brehamel", "и другие"],
+            genres: "Комедия, фэнтези, приключения, ужасы, мультсериал",
+            cast: ["Алекс Рошон", "Майкл Ковач", "Аманда Хаффорд", "Марисса Ленти", "Эшли Николс", "Gooseworx", "Лиззи Фриман", "Шон Чиплок", "Джек Хоукинс"],
             dubTeam: [
                 { character: "Помни", actor: "Liska" },
                 { character: "Кейн", actor: "Gashun" },
@@ -188,19 +32,148 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     };
 
+    // --- ОБЩИЕ ФУНКЦИИ ---
+    AOS.init({ once: true, duration: 800, easing: 'ease-out-cubic' });
+
+    // --- ПЕРЕМЕННЫЕ DOM ---
+    const body = document.body;
+    const header = document.querySelector('.header');
+    const backToTopButton = document.getElementById('backToTop');
+    const menuToggle = document.getElementById('menu-toggle');
+    const closeNavBtn = document.getElementById('close-nav-btn');
+    const navMenu = document.getElementById('nav-menu');
+    
+    // --- ЭФФЕКТ ХЕДЕРА И КНОПКА "НАВЕРХ" ---
+    window.addEventListener('scroll', () => {
+        if (header) header.classList.toggle('scrolled', window.scrollY > 50);
+        if (backToTopButton) backToTopButton.classList.toggle('show', window.pageYOffset > 300);
+    });
+    if (backToTopButton) backToTopButton.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    // --- ЛОГИКА МОБИЛЬНОГО МЕНЮ (САЙДБАРА) ---
+    if (menuToggle && navMenu && closeNavBtn) {
+        const openMenu = () => {
+            navMenu.classList.add('open');
+            body.classList.add('nav-open');
+            menuToggle.classList.add('active');
+        };
+        const closeMenu = () => {
+            navMenu.classList.remove('open');
+            body.classList.remove('nav-open');
+            menuToggle.classList.remove('active');
+        };
+        menuToggle.addEventListener('click', openMenu);
+        closeNavBtn.addEventListener('click', closeMenu);
+
+        navMenu.querySelectorAll('a').forEach(link => {
+            if (!link.classList.contains('dropdown-toggle')) {
+                link.addEventListener('click', closeMenu);
+            }
+        });
+
+        navMenu.querySelectorAll('.dropdown[data-mobile-dropdown]').forEach(dropdown => {
+            const toggle = dropdown.querySelector('.dropdown-toggle');
+            toggle.addEventListener('click', (e) => {
+                if (window.innerWidth <= 992) {
+                    e.preventDefault();
+                    dropdown.classList.toggle('active');
+                }
+            });
+        });
+    }
+
+    // --- ЛОГИКА ВКЛАДОК И АККОРДЕОНОВ ОБОРУДОВАНИЯ ---
+    document.querySelectorAll('.tab-link').forEach(link => {
+        link.addEventListener('click', () => {
+            const tabId = link.dataset.tab;
+            document.querySelectorAll('.tab-link').forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
+            document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+            document.getElementById(tabId)?.classList.add('active');
+        });
+    });
+
+    document.querySelectorAll('.product-summary').forEach(summary => {
+        summary.addEventListener('click', () => {
+            const card = summary.closest('.product-card');
+            if (!card) return;
+            const isExpanded = card.classList.contains('expanded');
+            document.querySelectorAll('.product-card.expanded').forEach(c => c.classList.remove('expanded'));
+            if (!isExpanded) card.classList.add('expanded');
+        });
+    });
+
+    document.querySelectorAll('.thumbnail-grid img').forEach(thumb => {
+        thumb.addEventListener('click', function (e) {
+            e.stopPropagation();
+            const mainImage = this.closest('.equipment-gallery')?.querySelector('.main-image');
+            if (mainImage) mainImage.src = this.src;
+            this.closest('.thumbnail-grid')?.querySelectorAll('img').forEach(t => t.classList.remove('active-thumb'));
+            this.classList.add('active-thumb');
+        });
+    });
+
+    // --- ЛОГИКА МОДАЛЬНЫХ ОКОН ---
+    const projectModal = document.getElementById('project-modal');
+    const comingSoonModal = document.getElementById('coming-soon-modal');
+    const imageLightbox = document.getElementById('image-lightbox');
+
+    function populateProjectModal(data) {
+        if (!projectModal || !data) return;
+
+        projectModal.querySelector('#project-modal-title').textContent = data.title;
+        projectModal.querySelector('#project-modal-poster-img').src = data.poster;
+        projectModal.querySelector('#project-modal-description').textContent = data.description;
+        projectModal.querySelector('#project-modal-trailer-btn').href = data.trailerUrl;
+
+        const ratingsContainer = projectModal.querySelector('#project-modal-ratings');
+        ratingsContainer.innerHTML = `
+            <div class="rating-item">
+                <span class="rating-source">IMDb:</span>
+                <span class="rating-score">${data.ratings.imdb.score.toFixed(1)}</span>
+            </div>
+            <div class="rating-item">
+                <span class="rating-source">Кинопоиск:</span>
+                <span class="rating-score">${data.ratings.kinopoisk.score.toFixed(2)}</span>
+            </div>
+        `;
+        
+        projectModal.querySelector('#project-modal-meta-list').innerHTML = `
+            <li><strong>Режиссёр:</strong> <span>${data.director}</span></li>
+            <li><strong>Дата выхода:</strong> <span>${data.releaseDate}</span></li>
+            <li><strong>Страна:</strong> <span>${data.country}</span></li>
+            <li><strong>Жанры:</strong> <span>${data.genres}</span></li>
+        `;
+
+        projectModal.querySelector('#project-modal-cast').innerHTML = data.cast.map(name => `<li>${name}</li>`).join('');
+        projectModal.querySelector('#project-modal-dub-team').innerHTML = data.dubTeam.map(item => `<li><strong>${item.character}:</strong> ${item.actor}</li>`).join('');
+
+        const episodeSelector = projectModal.querySelector('#episode-selector');
+        const iframe = projectModal.querySelector('#project-modal-iframe');
+        episodeSelector.innerHTML = data.episodes.map((ep, index) => 
+            `<button class="button episode-btn ${index === 0 ? 'active' : ''}" data-url="${ep.url}" ${!ep.url ? 'disabled' : ''}>${ep.title}</button>`
+        ).join('');
+        iframe.src = data.episodes[0]?.url || '';
+    }
+
     function openModal(modal) {
         if (modal) {
             modal.style.display = 'flex';
-            document.body.style.overflow = 'hidden';
+            body.classList.add('nav-open');
         }
     }
 
     function closeModal(modal) {
         if (modal) {
             modal.style.display = 'none';
-            document.body.style.overflow = 'auto';
+            body.classList.remove('nav-open');
             const iframe = modal.querySelector('iframe');
             if (iframe) iframe.src = '';
+            
+            if (modal.id === 'image-lightbox') {
+                const lightboxImg = modal.querySelector('img');
+                if (lightboxImg) lightboxImg.src = ''; 
+            }
         }
     }
 
@@ -210,12 +183,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (projectKey === 'coming-soon') {
                 openModal(comingSoonModal);
             } else if (projectData[projectKey]) {
-                const data = projectData[projectKey];
-                projectModal.querySelector('#project-modal-title').textContent = data.title;
-                projectModal.querySelector('#project-modal-poster-img').src = data.poster;
-                projectModal.querySelector('#project-modal-description').textContent = data.description;
-                projectModal.querySelector('#project-modal-dub-team').innerHTML = data.dubTeam.map(item => `<li>${item}</li>`).join('');
-                projectModal.querySelector('#project-modal-iframe').src = data.episodes[0].url;
+                populateProjectModal(projectData[projectKey]);
                 openModal(projectModal);
             }
         });
@@ -229,98 +197,55 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // --- Инициализация Swiper Slider ---
-    if (document.querySelector('.process-slider')) {
+    projectModal?.querySelector('#episode-selector').addEventListener('click', (e) => {
+        if (e.target.classList.contains('episode-btn')) {
+            const url = e.target.dataset.url;
+            if (url) {
+                projectModal.querySelector('#project-modal-iframe').src = url;
+                projectModal.querySelectorAll('.episode-btn').forEach(btn => btn.classList.remove('active'));
+                e.target.classList.add('active');
+            }
+        }
+    });
+
+    // --- SWIPER SLIDER ---
+    const processSlider = document.querySelector('.process-slider');
+    if (processSlider) {
         new Swiper('.process-slider', {
             loop: true,
             grabCursor: true,
             centeredSlides: true,
-            slidesPerView: 1,
+            slidesPerView: 'auto',
             spaceBetween: 20,
-            autoplay: {
-                delay: 3000,
-                disableOnInteraction: false,
-            },
-            pagination: { 
-                el: '.swiper-pagination', 
-                clickable: true,
-                dynamicBullets: true
-            },
-            navigation: { 
-                nextEl: '.swiper-button-next', 
-                prevEl: '.swiper-button-prev' 
-            },
-            breakpoints: { 
-                768: { 
-                    slidesPerView: 2,
-                    spaceBetween: 30
-                }, 
-                1200: { 
-                    slidesPerView: 3,
-                    spaceBetween: 40
-                } 
-            },
-            effect: 'slide',
-            speed: 600,
-            watchOverflow: true,
-            watchSlidesProgress: true,
-            watchSlidesVisibility: true
+            autoplay: { delay: 3000, disableOnInteraction: false },
+            pagination: { el: '.swiper-pagination', clickable: true },
+            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+            breakpoints: {
+                768: { spaceBetween: 30 },
+                1200: { spaceBetween: 40 }
+            }
+        });
+        
+        // --- НОВОЕ: ЛОГИКА ДЛЯ ОТКРЫТИЯ ИЗОБРАЖЕНИЙ ИЗ СЛАЙДЕРА ---
+        processSlider.addEventListener('click', (e) => {
+            const slideImg = e.target.closest('.swiper-slide img');
+            if (slideImg && imageLightbox) {
+                const lightboxImg = imageLightbox.querySelector('img');
+                if (lightboxImg) {
+                    lightboxImg.src = slideImg.src;
+                    openModal(imageLightbox);
+                }
+            }
         });
     }
 
-    // --- Обработка формы контактов ---
+    // --- FORM SUBMISSION ---
     const contactForm = document.querySelector('.contact-form');
-    if (contactForm) {
+    if(contactForm) {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            const formMessage = document.querySelector('.form-submission-message');
-            const successMessage = formMessage.querySelector('.success-message');
-            const errorMessage = formMessage.querySelector('.error-message');
-            const submitButton = contactForm.querySelector('button[type="submit"]');
-            
-            submitButton.disabled = true;
-            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Отправка...';
-
-            setTimeout(() => {
-                formMessage.style.display = 'block';
-                successMessage.style.display = 'block';
-                errorMessage.style.display = 'none';
-                submitButton.disabled = false;
-                submitButton.innerHTML = 'Отправить сообщение';
-                contactForm.reset();
-                setTimeout(() => { formMessage.style.display = 'none'; }, 5000);
-            }, 1500);
+            // Здесь будет логика отправки, сейчас это симуляция
+            console.log("Форма отправлена (симуляция)");
         });
     }
-});
-
-function closeAllProductCards(except) {
-  document.querySelectorAll('.product-card.open').forEach(card => {
-    if (card !== except) card.classList.remove('open');
-  });
-}
-
-function deselectAllProductCards(except) {
-  document.querySelectorAll('.product-card.selected').forEach(card => {
-    if (card !== except) card.classList.remove('selected');
-  });
-}
-
-function setupProductCards() {
-  document.querySelectorAll('.product-card').forEach(card => {
-    card.addEventListener('click', (e) => {
-      // Не даём всплывать, если клик по thumbnail
-      if (e.target.closest('.thumbnail-grid')) return;
-      const isOpen = card.classList.contains('open');
-      closeAllProductCards();
-      deselectAllProductCards();
-      if (!isOpen) {
-        card.classList.add('open', 'selected');
-      }
-    });
-  });
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  setupProductCards();
 });
