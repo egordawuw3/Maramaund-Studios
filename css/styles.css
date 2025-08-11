@@ -606,7 +606,7 @@ a:hover {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
-.equipment-card {
+.equipment-card, .equipment-card-details {
     display: flex;
     gap: var(--space-md);
     align-items: flex-start;
@@ -801,19 +801,22 @@ a:hover {
     border-top: 1px solid var(--light-border);
     max-height: 1200px;
 }
-.product-details .equipment-card {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--space-lg);
-    box-shadow: none;
-    padding: 0;
-    border: none;
-    border-radius: 0;
-    background: transparent;
-}
+
+/* ИСПРАВЛЕНО: Эти стили теперь находятся в медиа-запросе для мобильных ниже, где им и место */
+/* .product-details .equipment-card { ... } */
+
+
 @media (min-width: 768px) {
-    .product-details .equipment-card {
+    .product-details .equipment-card,
+    .product-details .equipment-card-details {
+        display: grid;
         grid-template-columns: 1fr 1.2fr;
+        gap: var(--space-lg);
+        box-shadow: none;
+        padding: 0;
+        border: none;
+        border-radius: 0;
+        background: transparent;
     }
 }
 
@@ -1198,19 +1201,21 @@ a:hover {
         font-size: 1.8em;
     }
     .header .nav .dropdown-menu {
+        /* ИСПРАВЛЕНО: Полностью сбрасываем стили позиционирования с десктопа */
         position: static;
+        display: block; /* Важно, чтобы max-height работал */
+        visibility: visible;
+        opacity: 1;
         background: transparent;
         box-shadow: none;
         width: 100%;
         text-align: center;
         padding-top: 10px;
         margin-top: 0;
-        transform: none;
-        opacity: 1;
-        visibility: visible;
-        display: block; /* Важно, чтобы max-height работал */
-
-        /* Новые стили для аккордеона */
+        transform: none; /* Отменяем transform с десктопа */
+        left: auto; /* Отменяем позиционирование */
+        
+        /* Стили для аккордеона */
         max-height: 0;
         overflow: hidden;
         transition: max-height 0.4s ease-out;
@@ -1276,17 +1281,11 @@ a:hover {
 
     /* --- НАЧАЛО ИСПРАВЛЕНИЙ ДЛЯ КАРТОЧЕК ОБОРУДОВАНИЯ --- */
 
-    /* Делаем раскрытую карточку на весь ряд только на десктопе */
-    @media (min-width: 992px) {
-        .product-card.expanded {
-            grid-column: 1 / -1;
-        }
-    }
-
-    /* Стили для product-details на мобильных */
-    .product-details .equipment-card {
-        display: flex; /* Используем flexbox */
-        flex-direction: column; /* Вертикальное расположение */
+    /* ИСПРАВЛЕНО: Стили для раскрытой карточки */
+    .product-details .equipment-card,
+    .product-details .equipment-card-details {
+        display: flex;
+        flex-direction: column;
         gap: var(--space-md);
         box-shadow: none;
         padding: 0;
@@ -1296,7 +1295,7 @@ a:hover {
     }
 
     /* Адаптация основной карточки оборудования */
-    .equipment-card {
+    .equipment-card, .equipment-card-details {
         flex-direction: column; /* Главное правило: ставим элементы вертикально */
         gap: 20px;
         align-items: center; /* Центрируем для аккуратности */
@@ -1304,6 +1303,7 @@ a:hover {
 
     .equipment-gallery {
         width: 100%;
+        max-width: 400px; /* Ограничим ширину галереи на мобильных */
     }
 
     .equipment-gallery .main-image {
