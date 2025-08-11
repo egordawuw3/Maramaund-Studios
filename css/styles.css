@@ -1208,17 +1208,40 @@ a:hover {
         transform: none;
         opacity: 1;
         visibility: visible;
-        display: block;
+        display: block; /* Важно, чтобы max-height работал */
+
+        /* Новые стили для аккордеона */
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease-out;
     }
+
+    /* Показываем подменю, когда у родителя есть класс .active */
+    .header .nav .dropdown.active .dropdown-menu {
+        max-height: 300px; /* Достаточная высота, чтобы вместить все пункты */
+        margin-top: 10px;
+    }
+    
     .header .nav .dropdown-menu li a {
         font-size: 0.7em;
         padding: 8px 0;
         justify-content: center;
         color: #aaa;
     }
+
     .nav .dropdown:hover .dropdown-toggle i {
         transform: none;
     }
+    
+    /* Вращаем стрелку для наглядности */
+    .header .nav .dropdown .dropdown-toggle i {
+        transition: transform 0.3s ease;
+    }
+
+    .header .nav .dropdown.active .dropdown-toggle i {
+        transform: rotate(180deg);
+    }
+    
     body.nav-open {
         overflow: hidden;
     }
@@ -1249,13 +1272,115 @@ a:hover {
     .header .logo a { font-size: 1.8em; }
     .contact-form-wrapper h3 { font-size: 1.8em; }
     .section-description { font-size: 1em; }
-    .product-summary { flex-direction: column; text-align: center; }
-    .product-summary-info { justify-content: center; }
-    .summary-arrow { display: none; }
-    .equipment-specs ul li { flex-direction: column; text-align: center; gap: 5px; }
-    .equipment-specs ul li strong { margin-right: 0; }
-    .equipment-specs ul li span { text-align: center; }
-    .tab-nav { flex-wrap: wrap; }
+    .tab-nav { flex-wrap: wrap; justify-content: center; }
+
+    /* --- НАЧАЛО ИСПРАВЛЕНИЙ ДЛЯ КАРТОЧЕК ОБОРУДОВАНИЯ --- */
+
+    /* Делаем раскрытую карточку на весь ряд только на десктопе */
+    @media (min-width: 992px) {
+        .product-card.expanded {
+            grid-column: 1 / -1;
+        }
+    }
+
+    /* Стили для product-details на мобильных */
+    .product-details .equipment-card {
+        display: flex; /* Используем flexbox */
+        flex-direction: column; /* Вертикальное расположение */
+        gap: var(--space-md);
+        box-shadow: none;
+        padding: 0;
+        border: none;
+        border-radius: 0;
+        background: transparent;
+    }
+
+    /* Адаптация основной карточки оборудования */
+    .equipment-card {
+        flex-direction: column; /* Главное правило: ставим элементы вертикально */
+        gap: 20px;
+        align-items: center; /* Центрируем для аккуратности */
+    }
+
+    .equipment-gallery {
+        width: 100%;
+    }
+
+    .equipment-gallery .main-image {
+        width: 100%;
+        height: auto;
+        max-height: 250px; /* Ограничиваем высоту главной картинки */
+        object-fit: contain;
+    }
+
+    .equipment-gallery .thumbnail-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+    }
+
+    .equipment-gallery .thumbnail-grid img {
+        height: 60px;
+        object-fit: contain;
+    }
+
+    .equipment-specs {
+        padding: 0;
+        width: 100%; /* Занимает всю ширину */
+        text-align: center; /* Текст по центру */
+    }
+
+    .equipment-specs h4 {
+        font-size: 1.8em;
+        text-align: center;
+    }
+
+    .equipment-specs p {
+        font-size: 1em;
+        text-align: center;
+    }
+
+    .equipment-specs ul li {
+        flex-direction: column; /* Характеристики тоже вертикально */
+        align-items: center; /* И по центру */
+        gap: 5px;
+        text-align: center;
+    }
+
+    .equipment-specs ul li strong {
+        margin-right: 0;
+    }
+     .equipment-specs ul li span {
+        text-align: center;
+    }
+
+    .equipment-specs .card-buttons {
+        justify-content: center; /* Кнопки по центру */
+        gap: 10px;
+    }
+
+    /* Адаптация "шапки" карточки */
+    .product-summary {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px; /* Увеличим отступ */
+        padding: 16px;
+    }
+    
+    .product-summary-img {
+        width: 100%;
+        max-width: 150px; /* Увеличим картинку в шапке */
+        height: auto;
+        object-fit: contain;
+    }
+
+    .product-summary-info {
+        justify-content: center;
+    }
+
+    .summary-arrow {
+        display: none; /* Стрелка на мобильных не нужна */
+    }
+     /* --- КОНЕЦ ИСПРАВЛЕНИЙ ДЛЯ КАРТОЧЕК ОБОРУДОВАНИЯ --- */
 }
 
 @media (max-width: 480px) {
@@ -1272,77 +1397,8 @@ a:hover {
     .equipment-specs ul li strong { margin-right: 0; }
     .equipment-specs ul li span { text-align: center; }
 }
-@media (max-width: 768px) {
-  .equipment-card {
-    flex-direction: column;
-    gap: 20px;
-  }
 
-  .equipment-gallery {
-    width: 100%;
-  }
-
-  .equipment-gallery .main-image {
-    width: 100%;
-    height: auto;
-    max-height: 250px;
-    object-fit: contain;
-  }
-
-  .equipment-gallery .thumbnail-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-  }
-
-  .equipment-gallery .thumbnail-grid img {
-    height: 60px;
-    object-fit: contain;
-  }
-
-  .equipment-specs {
-    padding: 0;
-  }
-
-  .equipment-specs h4 {
-    font-size: 1.6em;
-    text-align: center;
-  }
-
-  .equipment-specs p {
-    font-size: 1em;
-    text-align: center;
-  }
-
-  .equipment-specs ul li {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 4px;
-    font-size: 0.95em;
-  }
-
-  .equipment-specs .card-buttons {
-    justify-content: center;
-    gap: 10px;
-  }
-
-  .product-summary {
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    padding: 16px;
-  }
-
-  .product-summary-img {
-    width: 100%;
-    max-height: 120px;
-    object-fit: contain;
-  }
-
-  .product-summary-info {
-    text-align: center;
-  }
-
-  .summary-arrow {
-    display: none;
-  }
+/* Стили для курсора на слайдах */
+.process-slider .swiper-slide {
+    cursor: pointer;
 }

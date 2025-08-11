@@ -43,21 +43,16 @@ document.addEventListener('DOMContentLoaded', function () {
     const mobileDropdown = document.querySelector('[data-mobile-dropdown]');
     if (mobileDropdown) {
         const toggleLink = mobileDropdown.querySelector('.dropdown-toggle');
-        const dropdownMenu = mobileDropdown.querySelector('.dropdown-menu');
-        console.log('Mobile dropdown found:', mobileDropdown);
-        console.log('Toggle link found:', toggleLink);
-        console.log('Dropdown menu found:', dropdownMenu);
-        console.log('Dropdown menu children:', dropdownMenu?.children);
         
         toggleLink.addEventListener('click', function(e) {
+            // Аккордеон работает только на мобильных
             if (window.innerWidth <= 992) {
-                e.preventDefault();
+                e.preventDefault(); // Предотвращаем переход по ссылке
                 mobileDropdown.classList.toggle('active');
-                console.log('Dropdown toggled, active:', mobileDropdown.classList.contains('active'));
-                console.log('Dropdown menu max-height:', dropdownMenu?.style.maxHeight);
             }
         });
     }
+
 
     // --- Переключение вкладок в секции "Оборудование" ---
     const tabLinks = document.querySelectorAll('.tab-link');
@@ -301,3 +296,32 @@ function setupProductCards() {
 document.addEventListener('DOMContentLoaded', () => {
   setupProductCards();
 });
+
+// --- Логика для Lightbox в слайдере ---
+const lightbox = document.getElementById('image-lightbox');
+if (lightbox) {
+    const lightboxImage = lightbox.querySelector('img');
+    const lightboxClose = lightbox.querySelector('.modal-close-button');
+    const sliderImages = document.querySelectorAll('.process-slider .swiper-slide img');
+
+    sliderImages.forEach(img => {
+        img.parentElement.addEventListener('click', () => { // Вешаем клик на родителя-слайд
+            lightbox.style.display = 'flex';
+            lightboxImage.src = img.src;
+            document.body.style.overflow = 'hidden';
+        });
+    });
+
+    const closeLightbox = () => {
+        lightbox.style.display = 'none';
+        lightboxImage.src = '';
+        document.body.style.overflow = 'auto';
+    };
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) { // Закрывать по клику на фон
+            closeLightbox();
+        }
+    });
+}
