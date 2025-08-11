@@ -43,16 +43,21 @@ document.addEventListener('DOMContentLoaded', function () {
     const mobileDropdown = document.querySelector('[data-mobile-dropdown]');
     if (mobileDropdown) {
         const toggleLink = mobileDropdown.querySelector('.dropdown-toggle');
+        const dropdownMenu = mobileDropdown.querySelector('.dropdown-menu');
+        console.log('Mobile dropdown found:', mobileDropdown);
+        console.log('Toggle link found:', toggleLink);
+        console.log('Dropdown menu found:', dropdownMenu);
+        console.log('Dropdown menu children:', dropdownMenu?.children);
         
         toggleLink.addEventListener('click', function(e) {
-            // Аккордеон работает только на мобильных
             if (window.innerWidth <= 992) {
-                e.preventDefault(); // Предотвращаем переход по ссылке
+                e.preventDefault();
                 mobileDropdown.classList.toggle('active');
+                console.log('Dropdown toggled, active:', mobileDropdown.classList.contains('active'));
+                console.log('Dropdown menu max-height:', dropdownMenu?.style.maxHeight);
             }
         });
     }
-
 
     // --- Переключение вкладок в секции "Оборудование" ---
     const tabLinks = document.querySelectorAll('.tab-link');
@@ -150,13 +155,36 @@ document.addEventListener('DOMContentLoaded', function () {
     // --- Логика для модальных окон ---
     const projectModal = document.getElementById('project-modal');
     const comingSoonModal = document.getElementById('coming-soon-modal');
+
+
     const projectData = {
         circus: {
             title: "Удивительный Цифровой Цирк",
-            description: "Психологическая тёмная комедия о персонажах, запертых в виртуальной реальности.",
+            description: "«Удивительный цифровой цирк» — это мультсериал в жанре психологической тёмной ко-медии о персонажах, запертых в виртуальной реальности. Главная героиня, Помни, ищет выход вместе с другими узниками, сталкиваясь с эксцентричным искусственным интеллектом, который управляет их миром.",
             poster: "assets/images/russian-works/Cuirk.png",
-            dubTeam: ["Liska (Помни)", "Gashun (Кейн)", "JolyGolf (Джекс)", "Berserk (Рагата)"],
-            episodes: [{ title: "Пилот", url: "https://www.youtube.com/embed/yXectSBcUKE" }]
+            trailerUrl: "https://www.youtube.com/embed/j8GWluNJ_78",
+            ratings: {
+                imdb: { score: 8.0, votes: "7 100" },
+                kinopoisk: { score: 8.17, votes: "26 814" }
+            },
+            releaseDate: "13 октября 2023 года",
+            country: "Австралия, США",
+            director: "Gooseworx",
+            genres: ["Комедии", "Фэнтези", "Фантастика", "Приключения", "Триллеры", "Ужасы", "Детективы", "Мультсериалы", "Зарубежные"],
+            cast: ["Алекс Рошон", "Майкл Ковач", "Аманда Хаффорд", "Марисса Ленти", "Эшли Николс", "Gooseworx", "Лиззи Фриман", "Шон Чиплок", "Джек Хоукинс", "Morgane Brehamel", "и другие"],
+            dubTeam: [
+                { character: "Помни", actor: "Liska" },
+                { character: "Кейн", actor: "Gashun" },
+                { character: "Джекс", actor: "JolyGolf" },
+                { character: "Рагата", actor: "Berserk" },
+                { character: "Гэнгл", actor: "Dariya" },
+                { character: "Королёр", actor: "OVERLORDS" },
+                { character: "Зубл", actor: "Batareika" },
+            ],
+            episodes: [
+                { title: "Пилот", url: "https://www.youtube.com/embed/yXectSBcUKE" },
+                { title: "Серия 2 (скоро)", url: "" }
+            ]
         }
     };
 
@@ -296,32 +324,3 @@ function setupProductCards() {
 document.addEventListener('DOMContentLoaded', () => {
   setupProductCards();
 });
-
-// --- Логика для Lightbox в слайдере ---
-const lightbox = document.getElementById('image-lightbox');
-if (lightbox) {
-    const lightboxImage = lightbox.querySelector('img');
-    const lightboxClose = lightbox.querySelector('.modal-close-button');
-    const sliderImages = document.querySelectorAll('.process-slider .swiper-slide img');
-
-    sliderImages.forEach(img => {
-        img.parentElement.addEventListener('click', () => { // Вешаем клик на родителя-слайд
-            lightbox.style.display = 'flex';
-            lightboxImage.src = img.src;
-            document.body.style.overflow = 'hidden';
-        });
-    });
-
-    const closeLightbox = () => {
-        lightbox.style.display = 'none';
-        lightboxImage.src = '';
-        document.body.style.overflow = 'auto';
-    };
-
-    lightboxClose.addEventListener('click', closeLightbox);
-    lightbox.addEventListener('click', (e) => {
-        if (e.target === lightbox) { // Закрывать по клику на фон
-            closeLightbox();
-        }
-    });
-}
