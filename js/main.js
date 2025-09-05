@@ -241,11 +241,173 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // --- FORM SUBMISSION ---
     const contactForm = document.querySelector('.contact-form');
+    const formMessage = document.querySelector('.form-submission-message');
+    
     if(contactForm) {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            // Здесь будет логика отправки, сейчас это симуляция
-            console.log("Форма отправлена (симуляция)");
+            
+            // Получаем данные формы
+            const formData = new FormData(contactForm);
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const subject = formData.get('subject');
+            const message = formData.get('message');
+            
+            // Валидация формы
+            if (!validateForm(name, email, subject, message)) {
+                return;
+            }
+            
+            // Показываем индикатор загрузки
+            showFormMessage('loading', 'Отправляем сообщение...');
+            
+            // Отправляем email через EmailJS (бесплатный сервис)
+            sendEmailViaEmailJS(name, email, subject, message);
         });
+    }
+    
+    // Функция валидации формы
+    function validateForm(name, email, subject, message) {
+        const errors = [];
+        
+        if (!name || name.trim().length < 2) {
+            errors.push('Имя должно содержать минимум 2 символа');
+        }
+        
+        if (!email || !isValidEmail(email)) {
+            errors.push('Введите корректный email адрес');
+        }
+        
+        if (!subject || subject.trim().length < 3) {
+            errors.push('Тема должна содержать минимум 3 символа');
+        }
+        
+        if (!message || message.trim().length < 10) {
+            errors.push('Сообщение должно содержать минимум 10 символов');
+        }
+        
+        if (errors.length > 0) {
+            showFormMessage('error', errors.join('<br>'));
+            return false;
+        }
+        
+        return true;
+    }
+    
+    // Функция проверки email
+    function isValidEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+    
+    // Функция отправки через EmailJS
+    function sendEmailViaEmailJS(name, email, subject, message) {
+        // Замените эти значения на ваши реальные данные EmailJS
+        const serviceID = 'service_maramaund'; // Ваш Service ID
+        const templateID = 'template_contact'; // Ваш Template ID
+        const publicKey = 'your_public_key'; // Ваш Public Key
+        
+        // Если EmailJS не настроен, используем альтернативный метод
+        if (serviceID === 'service_maramaund' || publicKey === 'your_public_key') {
+            // Альтернативный метод - отправка через mailto
+            sendEmailViaMailto(name, email, subject, message);
+            return;
+        }
+        
+        // Инициализация EmailJS
+        emailjs.init(publicKey);
+        
+        const templateParams = {
+            from_name: name,
+            from_email: email,
+            subject: subject,
+            message: message,
+            to_email: 'info@maramaund.com' // Ваш email
+        };
+        
+        emailjs.send(serviceID, templateID, templateParams)
+            .then(function(response) {
+                console.log('SUCCESS!', response.status, response.text);
+                showFormMessage('success', 'Ваше сообщение успешно отправлено! Мы свяжемся с вами в ближайшее время.');
+                contactForm.reset();
+            })
+            .catch(function(error) {
+                console.log('FAILED...', error);
+                showFormMessage('error', 'Произошла ошибка при отправке сообщения. Попробуйте еще раз или свяжитесь с нами напрямую.');
+            });
+    }
+    
+    // Альтернативный метод через mailto
+    function sendEmailViaMailto(name, email, subject, message) {
+        const emailBody = `
+Здравствуйте!
+
+Новое сообщение с сайта MaraMaund Studios:
+
+Имя: ${name}
+Email: ${email}
+Тема: ${subject}
+
+Сообщение:
+${message}
+
+---
+Отправлено с сайта maramaund.com
+        `;
+        
+        const mailtoLink = `mailto:info@maramaund.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+        
+        // Открываем почтовый клиент
+        window.open(mailtoLink, '_blank');
+        
+        // Показываем сообщение об успехе
+        showFormMessage('success', 'Открыт почтовый клиент. Скопируйте данные формы и отправьте письмо на info@maramaund.com');
+        contactForm.reset();
+    }
+    
+    // Функция показа сообщений формы
+    function showFormMessage(type, message) {
+        if (!formMessage) return;
+        
+        const successMsg = formMessage.querySelector('.success-message');
+        const errorMsg = formMessage.querySelector('.error-message');
+        const loadingMsg = formMessage.querySelector('.loading-message');
+        
+        // Скрываем все сообщения
+        if (successMsg) successMsg.style.display = 'none';
+        if (errorMsg) errorMsg.style.display = 'none';
+        if (loadingMsg) loadingMsg.style.display = 'none';
+        
+        // Показываем нужное сообщение
+        formMessage.style.display = 'block';
+        
+        switch(type) {
+            case 'success':
+                if (successMsg) {
+                    successMsg.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+                    successMsg.style.display = 'block';
+                }
+                break;
+            case 'error':
+                if (errorMsg) {
+                    errorMsg.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
+                    errorMsg.style.display = 'block';
+                }
+                break;
+            case 'loading':
+                if (loadingMsg) {
+                    loadingMsg.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${message}`;
+                    loadingMsg.style.display = 'block';
+                }
+                break;
+        }
+        
+        // Автоматически скрываем сообщение через 5 секунд (кроме ошибок)
+        if (type !== 'error') {
+            setTimeout(() => {
+                formMessage.style.display = 'none';
+            }, 5000);
+        }
     }
 });
