@@ -1445,7 +1445,7 @@ a:hover {
     .product-summary { flex-direction: column; text-align: center; }
     .product-summary-info { justify-content: center; }
     .summary-arrow { display: none; }
-    .equipment-specs ul li { flex-direction: column; text-align: center; gap: 5px; }
+    .equipment-specs ul li { flex-direction: column; text-align: center, gap: 5px; }
     .equipment-specs ul li strong { margin-right: 0; }
     .equipment-specs ul li span { text-align: center; }
 }
@@ -1453,4 +1453,7 @@ a:hover {
 /* Стили для курсора на слайдах */
 .process-slider .swiper-slide {
     cursor: pointer;
+}
+.nav.open ~ #menu-toggle {
+    display: none;
 }
