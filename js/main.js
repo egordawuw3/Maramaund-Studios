@@ -323,7 +323,7 @@ document.addEventListener('DOMContentLoaded', function () {
             from_email: email,
             subject: subject,
             message: message,
-            to_email: 'info@maramaund.com' // Ваш email
+            to_email: 'info@maramaundstudios.ru' // Ваш email
         };
         
         emailjs.send(serviceID, templateID, templateParams)
